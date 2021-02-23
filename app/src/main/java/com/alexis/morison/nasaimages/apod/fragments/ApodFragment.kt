@@ -3,22 +3,26 @@ package com.alexis.morison.nasaimages.apod.fragments
 import android.app.Activity
 import android.app.WallpaperManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import java.io.File
 import java.io.IOException
 
-private const val itemParamExtra = ""
+
+private const val itemParamExtra = "itemAPOD"
 
 class ApodFragment : Fragment() {
 
@@ -85,46 +89,20 @@ class ApodFragment : Fragment() {
 
     private fun setListeners() {
 
+        val utilService = UtilService(context, activity as Activity)
+
         btnWallpaper.setOnClickListener {
 
-            Picasso.get().load(hdUrl).into(object : Target {
+            utilService.askPermissions()
 
-                override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-
-                    val wallManager = WallpaperManager.getInstance(context)
-
-                    try {
-                        wallManager.setBitmap(bitmap)
-
-                        Toast.makeText(context, "Download success", Toast.LENGTH_SHORT).show()
-
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-
-                    Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "If the wallpaper is not set, download image please", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-
-                    if (e != null) { e.message?.let { it1 -> Log.d("ASDASD", it1) } }
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                }
-            })
+            utilService.downloadImage(hdUrl, true)
         }
 
         btnWallpaperDownload.setOnClickListener {
 
-            val utilService = UtilService(context, activity as Activity)
-
             utilService.askPermissions()
 
-            utilService.downloadImage(hdUrl)
+            utilService.downloadImage(hdUrl, false)
         }
     }
 
