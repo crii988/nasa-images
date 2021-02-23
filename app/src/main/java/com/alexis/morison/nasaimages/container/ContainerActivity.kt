@@ -1,10 +1,12 @@
-package com.alexis.morison.nasaimages
+package com.alexis.morison.nasaimages.container
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.alexis.morison.nasaimages.fragments.ApodFragment
+import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.apod.fragments.ApodFragment
+import com.alexis.morison.nasaimages.apod.models.APOD
 import kotlinx.android.synthetic.main.activity_container.*
 
 class ContainerActivity : AppCompatActivity() {
@@ -25,23 +27,24 @@ class ContainerActivity : AppCompatActivity() {
         when (intent.getIntExtra("id", 1)) {
 
             1 -> {
-                loadFragment(ApodFragment.newInstance(intent.getStringExtra("date").toString()))
+                loadFragment(ApodFragment.newInstance(intent.extras?.get("item") as APOD))
+
                 toolbar.title = "APOD"
             }
             2 -> {
-                loadFragment(ApodFragment())
+                //loadFragment(ApodFragment())
                 toolbar.title = "Earth"
             }
             3 -> {
-                loadFragment(ApodFragment())
+                //loadFragment(ApodFragment())
                 toolbar.title = "EPIC"
             }
             4 -> {
-                loadFragment(ApodFragment())
+                //loadFragment(ApodFragment())
                 toolbar.title = "Mars Rover Photos"
             }
             else -> {
-                loadFragment(ApodFragment())
+                //loadFragment(ApodFragment())
                 toolbar.title = "NASA Image and Video Library"
             }
         }

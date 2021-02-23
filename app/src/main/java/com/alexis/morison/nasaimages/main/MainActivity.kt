@@ -1,14 +1,12 @@
-package com.alexis.morison.nasaimages
+package com.alexis.morison.nasaimages.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alexis.morison.nasaimages.adapters.MainItemsAdapter
-import com.alexis.morison.nasaimages.models.MainItem
+import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.main.adapters.MainItemsAdapter
+import com.alexis.morison.nasaimages.main.models.MainItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 

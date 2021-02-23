@@ -1,4 +1,4 @@
-package com.alexis.morison.nasaimages.models
+package com.alexis.morison.nasaimages.main.models
 
 data class MainItem(
     val id: Int,

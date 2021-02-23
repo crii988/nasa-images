@@ -18,12 +18,12 @@
         android:theme="@style/Theme.NasaImagesNobar"
         android:largeHeap="true">
 
-        <activity android:name=".ApodActivity"></activity>
+        <activity android:name=".apod.ApodActivity"></activity>
 
         <activity
-            android:name=".ContainerActivity"
+            android:name=".container.ContainerActivity"
             android:theme="@style/Theme.NasaImagesNobar" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

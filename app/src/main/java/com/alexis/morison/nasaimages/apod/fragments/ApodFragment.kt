@@ -1,10 +1,9 @@
-package com.alexis.morison.nasaimages.fragments
+package com.alexis.morison.nasaimages.apod.fragments
 
 import android.app.Activity
 import android.app.WallpaperManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,21 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import java.io.IOException
 
-private const val dateParamExtra = ""
+private const val itemParamExtra = ""
 
 class ApodFragment : Fragment() {
 
     private lateinit var imageView: ImageView
-    private lateinit var videoView: VideoView
     private lateinit var title: TextView
     private lateinit var copyright: TextView
     private lateinit var date: TextView
@@ -35,23 +30,18 @@ class ApodFragment : Fragment() {
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
 
-    private var requestQueue: RequestQueue? = null
-
-    private val apiKey = "XdRrmURyk5bW91jnAyoHbaAngJrF8vKIiQiZI6AV"
-
     private var hdUrl = ""
 
-    private var dateParam: String? = null
+    private var itemData: APOD? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            dateParam = it.getString(dateParamExtra)
-        }
 
-        requestQueue = Volley.newRequestQueue(context)
-        getApod()
+            itemData = it.getSerializable(itemParamExtra) as APOD
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,7 +51,9 @@ class ApodFragment : Fragment() {
 
         setViews(v)
 
-        setListeners(v)
+        setData()
+
+        setListeners()
 
         return v
     }
@@ -69,7 +61,6 @@ class ApodFragment : Fragment() {
     private fun setViews(v: View) {
 
         imageView = v.findViewById(R.id.apod_image_view)
-        videoView = v.findViewById(R.id.apod_video_view)
         title = v.findViewById(R.id.apod_title)
         copyright = v.findViewById(R.id.apod_copyright)
         date = v.findViewById(R.id.apod_date)
@@ -78,7 +69,21 @@ class ApodFragment : Fragment() {
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
     }
 
-    private fun setListeners(v: View) {
+    private fun setData() {
+
+        title.text = itemData!!.title
+        copyright.text = itemData!!.copyright
+        date.text = itemData!!.date
+        explanation.text = itemData!!.explanation
+        hdUrl = itemData!!.hdurl
+
+        Picasso.get()
+                .load(itemData!!.url)
+                .error(R.drawable.library)
+                .into(imageView)
+    }
+
+    private fun setListeners() {
 
         btnWallpaper.setOnClickListener {
 
@@ -95,7 +100,6 @@ class ApodFragment : Fragment() {
 
                     } catch (e: IOException) {
                         e.printStackTrace()
-
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -103,16 +107,12 @@ class ApodFragment : Fragment() {
                 override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
 
                     Toast.makeText(context, "Downloading", Toast.LENGTH_SHORT).show()
-
-                    Toast.makeText(context, "If the wallpaper is not set, download image please", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "If the wallpaper is not set, download image please", Toast.LENGTH_LONG).show()
                 }
 
                 override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
 
-                    if (e != null) {
-                        e.message?.let { it1 -> Log.d("ASDASD", it1) }
-                    }
-
+                    if (e != null) { e.message?.let { it1 -> Log.d("ASDASD", it1) } }
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -128,56 +128,15 @@ class ApodFragment : Fragment() {
         }
     }
 
-    private fun getApod() {
-
-        val url = "https://api.nasa.gov/planetary/apod?date=$dateParam&api_key=$apiKey"
-
-        val json = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
-
-                title.text = response.getString("title")
-                date.text = response.getString("date")
-                explanation.text = response.getString("explanation")
-
-                copyright.text = ""
-
-                try {
-                    copyright.text = response.getString("copyright")
-                }
-                catch (e: Exception) {
-                    Log.d("asdasd", e.message.toString())
-                }
-
-                hdUrl = response.getString("hdurl")
-
-                Picasso.get()
-                    .load(response.getString("url"))
-                    .error(R.drawable.library)
-                    .into(imageView)
-
-                btnWallpaper.visibility = View.VISIBLE
-                btnWallpaperDownload.visibility = View.VISIBLE
-            },
-            { _ ->
-                Picasso.get()
-                    .load(R.drawable.apod)
-                    .into(imageView)
-
-                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-            }
-        )
-
-        requestQueue?.add(json)
-    }
-
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String) =
-            ApodFragment().apply {
+        fun newInstance(param1: APOD) =
+
+                ApodFragment().apply {
                 arguments = Bundle().apply {
-                    putString(dateParamExtra, param1)
+
+                    putSerializable(itemParamExtra, param1)
                 }
             }
     }

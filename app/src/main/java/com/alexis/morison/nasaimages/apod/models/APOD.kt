@@ -1,4 +1,6 @@
-package com.alexis.morison.nasaimages.models
+package com.alexis.morison.nasaimages.apod.models
+
+import java.io.Serializable
 
 data class APOD(
     val copyright: String,
@@ -7,4 +9,4 @@ data class APOD(
     val hdurl: String,
     val title: String,
     val url: String,
-)
+) : Serializable

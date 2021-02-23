@@ -14,9 +14,6 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.alexis.morison.nasaimages.ContainerActivity
-import com.alexis.morison.nasaimages.MainActivity
-import com.alexis.morison.nasaimages.fragments.ApodFragment
 import java.io.File
 
 
@@ -64,7 +61,6 @@ class UtilService(private val context: Context?, private val activity: Activity)
                 // MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
-
             }
         }
     }
@@ -79,7 +75,6 @@ class UtilService(private val context: Context?, private val activity: Activity)
         if (!directory.exists()) {
             directory.mkdirs()
         }
-
 
         val downloadManager = context?.let { ContextCompat.getSystemService(it, DownloadManager::class.java) } as DownloadManager
 

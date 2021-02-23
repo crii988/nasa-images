@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ApodFragment"
+    tools:context=".apod.fragments.ApodFragment"
     android:background="@color/base">
 
     <androidx.core.widget.NestedScrollView
@@ -27,12 +27,6 @@
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
                     android:id="@+id/apod_image_view"/>
-
-                <VideoView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/apod_video_view"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -83,15 +77,13 @@
                 android:layout_height="70dp"
                 android:text="Set as wallpaper"
                 android:id="@+id/btn_set_wallpaper"
-                android:layout_marginVertical="20dp"
-                android:visibility="gone"/>
+                android:layout_marginVertical="20dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="Download image"
                 android:layout_marginBottom="20dp"
-                android:visibility="gone"
                 android:id="@+id/btn_download_wallpaper"/>
 
         </LinearLayout>

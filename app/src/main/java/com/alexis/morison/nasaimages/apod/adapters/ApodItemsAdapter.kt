@@ -1,17 +1,14 @@
-package com.alexis.morison.nasaimages.adapters
+package com.alexis.morison.nasaimages.apod.adapters
 
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.alexis.morison.nasaimages.ApodActivity
-import com.alexis.morison.nasaimages.ContainerActivity
+import com.alexis.morison.nasaimages.container.ContainerActivity
 import com.alexis.morison.nasaimages.R
-import com.alexis.morison.nasaimages.models.APOD
-import com.alexis.morison.nasaimages.models.MainItem
+import com.alexis.morison.nasaimages.apod.models.APOD
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
 
@@ -19,11 +16,7 @@ class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<Apo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.apod_menu_card,
-            parent,
-            false
-        )
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.apod_menu_card, parent, false)
 
         return ViewHolder(view)
     }
@@ -31,6 +24,7 @@ class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<Apo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
+
 
     class ViewHolder(private val v: View) : RecyclerView.ViewHolder(v) {
 
@@ -47,13 +41,10 @@ class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<Apo
 
             apod_card.setOnClickListener {
 
-                val date = item.date
-                val idCode = 1
-
                 val intent = Intent(context, ContainerActivity::class.java).apply {
 
-                    putExtra("id", idCode)
-                    putExtra("date", date)
+                    putExtra("id", 1)
+                    putExtra("item", item)
                 }
 
                 ContextCompat.startActivity(context, intent, null)

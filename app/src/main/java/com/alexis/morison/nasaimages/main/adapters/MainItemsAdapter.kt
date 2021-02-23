@@ -1,24 +1,17 @@
-package com.alexis.morison.nasaimages.adapters
+package com.alexis.morison.nasaimages.main.adapters
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.alexis.morison.nasaimages.ApodActivity
-import com.alexis.morison.nasaimages.ContainerActivity
+import com.alexis.morison.nasaimages.apod.ApodActivity
 import com.alexis.morison.nasaimages.R
-import com.alexis.morison.nasaimages.models.APOD
-import com.alexis.morison.nasaimages.models.MainItem
+import com.alexis.morison.nasaimages.main.models.MainItem
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
@@ -68,9 +61,11 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
                 val id = item.id
 
+                // En el futuro es necesario hacer un when id
+
                 val intent = Intent(context, ApodActivity::class.java).apply {
 
-                    putExtra("ID", id)
+                    putExtra("id", id)
                 }
 
                 startActivity(context, intent, null)
