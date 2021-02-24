@@ -95,12 +95,16 @@ class ApodFragment : Fragment() {
 
             utilService.askPermissions()
 
+            Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
+
             utilService.downloadImage(hdUrl, true)
         }
 
         btnWallpaperDownload.setOnClickListener {
 
             utilService.askPermissions()
+
+            Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
             utilService.downloadImage(hdUrl, false)
         }

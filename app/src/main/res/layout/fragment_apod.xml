@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/apod_copyright"
-                    android:textColor="@color/gray_lightest"/>
+                    android:textColor="@color/gray_lightest" />
 
                 <TextView
                     android:layout_width="match_parent"

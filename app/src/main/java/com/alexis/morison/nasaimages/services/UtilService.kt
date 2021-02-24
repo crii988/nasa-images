@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -44,7 +45,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
                 AlertDialog.Builder(context)
                     .setTitle("Permission required")
                     .setMessage("Permission required to save photos from the Web.")
-                    .setPositiveButton("Allow") { dialog, id ->
+                    .setPositiveButton("Allow") { _, _ ->
                         ActivityCompat.requestPermissions(
                                 context,
                                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -69,7 +70,6 @@ class UtilService(private val context: Context?, private val activity: Activity)
     }
 
     private var status: Int? = null
-    private var lastMsg = ""
 
     fun downloadImage(url: String, setWallpaper: Boolean) {
 
@@ -107,58 +107,104 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
                 val cursor: Cursor = downloadManager.query(query)
                 cursor.moveToFirst()
-                if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+
+                val cursorStatus = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+
+                if (cursorStatus == DownloadManager.STATUS_SUCCESSFUL) {
+
                     downloading = false
                 }
-                status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                else if (cursorStatus == DownloadManager.STATUS_FAILED) {
 
-                var msg = ""
-                msg = when (status) {
-                    DownloadManager.STATUS_FAILED -> "Download has been failed, please try again"
-                    DownloadManager.STATUS_PAUSED -> "Paused"
-                    DownloadManager.STATUS_PENDING -> "Pending"
-                    DownloadManager.STATUS_RUNNING -> "Downloading"
-                    DownloadManager.STATUS_SUCCESSFUL -> "Download success"
-                    else -> "There's nothing to download"
+                    downloading = false
                 }
+                status = cursorStatus
 
-                if (msg != lastMsg) {
-
-                    activity.runOnUiThread {
-
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-
-                        lastMsg = msg
-
-                        if (msg == "Download success" && setWallpaper) {
-
-                            val wallManager = WallpaperManager.getInstance(context)
-
-                            try {
-                                val sdcardPath = Environment.getExternalStorageDirectory().toString()
-
-                                val filePath = sdcardPath +
-                                        File.separator +
-                                        "$directory" +
-                                        File.separator +
-                                        url.substring(url.lastIndexOf("/") + 1)
-
-                                val bitmap = BitmapFactory.decodeFile(filePath)
-
-                                wallManager.setBitmap(bitmap)
-
-                                Toast.makeText(context, "Set Wallpapers successfully", Toast.LENGTH_SHORT).show()
-
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
                 cursor.close()
             }
+
+            when (status) {
+                DownloadManager.STATUS_FAILED -> {
+
+                    val title = if (setWallpaper) "Setting wallpaper failed"
+                            else "Download image failed"
+
+                    sendNotification(
+                            title,
+                            "Please try again",
+                            R.drawable.ic_baseline_error_outline_24)
+                }
+                DownloadManager.STATUS_SUCCESSFUL -> {
+
+                    if (setWallpaper) {
+
+                        setWallpaperManager(directory, url)
+                    }
+                    else {
+                        sendNotification(
+                                "Download image successfully",
+                                "The image is in the folder $directory",
+                                R.drawable.ic_baseline_check_circle_outline_24)
+                    }
+                }
+            }
+
         }).start()
+    }
+
+    private fun setWallpaperManager(directory: File, url: String) {
+
+        val wallManager = WallpaperManager.getInstance(context)
+
+        try {
+            val sdcardPath = Environment.getExternalStorageDirectory().toString()
+
+            val filePath = sdcardPath +
+                    File.separator +
+                    "$directory" +
+                    File.separator +
+                    url.substring(url.lastIndexOf("/") + 1)
+
+            val bitmap = BitmapFactory.decodeFile(filePath)
+
+            wallManager.setBitmap(bitmap)
+
+            sendNotification(
+                    "Wallpaper set successfully",
+                    "The wallpaper is in the folder $directory",
+                    R.drawable.ic_baseline_check_circle_outline_24)
+        }
+        catch (e: Exception) {
+
+            sendNotification(
+                    "Setting wallpaper failed",
+                    "Please try again",
+                    R.drawable.ic_baseline_error_outline_24)
+        }
+    }
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    private lateinit var builder: Notification.Builder
+    private val channelId = "i.apps.notifications"
+    private val description = "Download notification"
+
+    private fun sendNotification(title: String, content: String, icon: Int) {
+
+        notificationManager = context?.let {
+            ContextCompat.getSystemService(it, NotificationManager::class.java)
+        } as NotificationManager
+
+        notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+        notificationChannel.enableVibration(false)
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        builder = Notification.Builder(context, channelId)
+                .setSmallIcon(icon)
+                .setContentTitle(title)
+                .setContentText(content)
+
+        notificationManager.notify(1234, builder.build())
     }
 
     companion object {
