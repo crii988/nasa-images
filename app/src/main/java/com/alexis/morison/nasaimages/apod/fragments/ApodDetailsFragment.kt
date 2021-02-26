@@ -1,7 +1,10 @@
 package com.alexis.morison.nasaimages.apod.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.fragment_apod_details.*
@@ -92,20 +96,33 @@ class ApodDetailsFragment : Fragment() {
 
         btnWallpaper.setOnClickListener {
 
-            utilService.askPermissions()
-
-            Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
-
-            utilService.downloadImage(hdUrl, true)
+            showDialog(utilService)
         }
 
         btnWallpaperDownload.setOnClickListener {
 
-            utilService.askPermissions()
-
             Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
-            utilService.downloadImage(hdUrl, false)
+            utilService.downloadImage(hdUrl, UtilService.FLAG_NOT_SET_WALLPAPER)
+        }
+    }
+
+    private fun showDialog(utilService: UtilService) {
+
+        val options = arrayOf("Main screen", "Lock screen", "Main and lock screen")
+
+        val builder = context?.let { MaterialAlertDialogBuilder(it, R.style.ThemeOverlay_MaterialComponents_Dark) }
+
+        with(builder) {
+
+            this!!.setTitle("Set wallpaper as")
+            setItems(options) { _, which ->
+
+                Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
+
+                utilService.downloadImage(hdUrl, which)
+            }
+            show()
         }
     }
 

@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat
 import com.alexis.morison.nasaimages.R
 import java.io.File
 
-
 class UtilService(private val context: Context?, private val activity: Activity) {
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -71,7 +70,9 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
     private var status: Int? = null
 
-    fun downloadImage(url: String, setWallpaper: Boolean) {
+    fun downloadImage(url: String, flag: Int) {
+
+        askPermissions()
 
         val directory = File(Environment.DIRECTORY_PICTURES)
 
@@ -124,35 +125,34 @@ class UtilService(private val context: Context?, private val activity: Activity)
             }
 
             when (status) {
+
                 DownloadManager.STATUS_FAILED -> {
 
-                    val title = if (setWallpaper) "Setting wallpaper failed"
-                            else "Download image failed"
+                    val title = if (flag != -1)
+                        "Setting wallpaper failed"
+                    else
+                        "Download image failed"
 
-                    sendNotification(
-                            title,
-                            "Please try again",
-                            R.drawable.ic_baseline_error_outline_24)
+                    sendNotification(title, "Please try again", R.drawable.ic_baseline_error_outline_24)
                 }
+
                 DownloadManager.STATUS_SUCCESSFUL -> {
 
-                    if (setWallpaper) {
+                    if (flag != -1) {
 
-                        setWallpaperManager(directory, url)
+                        setWallpaperManager(directory, url, flag)
                     }
                     else {
-                        sendNotification(
-                                "Download image successfully",
+                        sendNotification("Download image successfully",
                                 "The image is in the folder $directory",
                                 R.drawable.ic_baseline_check_circle_outline_24)
                     }
                 }
             }
-
         }).start()
     }
 
-    private fun setWallpaperManager(directory: File, url: String) {
+    private fun setWallpaperManager(directory: File, url: String, flag: Int) {
 
         val wallManager = WallpaperManager.getInstance(context)
 
@@ -167,7 +167,20 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
             val bitmap = BitmapFactory.decodeFile(filePath)
 
-            wallManager.setBitmap(bitmap)
+            when (flag) {
+
+                FLAG_MAIN_SCREEN -> wallManager.setBitmap(bitmap,
+                        null,
+                        true,
+                        WallpaperManager.FLAG_SYSTEM)
+
+                FLAG_LOCK_SCREEN -> wallManager.setBitmap(bitmap,
+                        null,
+                        true,
+                        WallpaperManager.FLAG_LOCK)
+
+                FLAG_BOTH_SCREEN -> wallManager.setBitmap(bitmap)
+            }
 
             sendNotification(
                     "Wallpaper set successfully",
@@ -208,6 +221,12 @@ class UtilService(private val context: Context?, private val activity: Activity)
     }
 
     companion object {
+
         private const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1
+
+        const val FLAG_NOT_SET_WALLPAPER = -1
+        const val FLAG_MAIN_SCREEN = 0
+        const val FLAG_LOCK_SCREEN = 1
+        const val FLAG_BOTH_SCREEN = 2
     }
 }
