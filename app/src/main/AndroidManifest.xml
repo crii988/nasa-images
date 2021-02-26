@@ -22,7 +22,7 @@
 
         <activity
             android:name=".container.ContainerActivity"
-            android:theme="@style/Theme.NasaImagesNobar" />
+            android:theme="@style/Theme.NasaImagesNobar"/>
 
         <activity android:name=".main.MainActivity">
             <intent-filter>

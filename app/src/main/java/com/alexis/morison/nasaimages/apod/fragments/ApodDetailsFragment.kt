@@ -10,10 +10,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
+import androidx.transition.TransitionInflater
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
+import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_container.*
+import kotlinx.android.synthetic.main.fragment_apod_details.*
 
 private const val itemParamExtra = "itemAPOD"
 
@@ -26,6 +32,7 @@ class ApodDetailsFragment : Fragment() {
     private lateinit var explanation: TextView
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
+    private lateinit var card: MaterialCardView
 
     private var hdUrl = ""
 
@@ -62,6 +69,7 @@ class ApodDetailsFragment : Fragment() {
         explanation = v.findViewById(R.id.apod_explanation)
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
+        card = v.findViewById(R.id.apod_card_detail)
     }
 
     private fun setData() {

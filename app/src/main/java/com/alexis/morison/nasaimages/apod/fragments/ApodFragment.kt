@@ -52,9 +52,7 @@ class ApodFragment : Fragment() {
 
         setViews(v)
 
-        if (savedState != null) {
-
-            apodList = savedState!!.getParcelableArrayList("data")!!
+        if (apodList.size > 0) {
 
             setRecyclerView()
         }
@@ -63,14 +61,6 @@ class ApodFragment : Fragment() {
         }
 
         return v
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        savedState = Bundle()
-
-        savedState!!.putParcelableArrayList("data", ArrayList(apodList))
     }
 
     private fun setViews(v: View) {
@@ -143,7 +133,7 @@ class ApodFragment : Fragment() {
                 setRecyclerView()
             },
             { _ ->
-                // Por error no hago nada..
+                progressBar.isIndeterminate = false
             }
         )
 

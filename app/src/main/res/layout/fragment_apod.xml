@@ -9,20 +9,26 @@
     android:background="@color/base_dark"
     android:id="@+id/fragment_apod">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/apod_items_recycler"
-        android:clipToPadding="false"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"/>
+        android:layout_height="match_parent"
+        android:id="@+id/apod_scroll">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/apod_items_recycler"
+            android:clipToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"/>
+
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminateTint="@color/gray_light"
-        android:id="@+id/apod_main_progress"
-        android:layout_marginTop="210dp"/>
+        android:id="@+id/apod_main_progress"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

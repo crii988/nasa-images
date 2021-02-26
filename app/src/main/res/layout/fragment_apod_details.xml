@@ -11,7 +11,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +26,8 @@
                 app:cardCornerRadius="20dp"
                 card_view:strokeColor="@color/base_gray"
                 card_view:strokeWidth="0.1dp"
-                card_view:cardElevation="0dp">
+                card_view:cardElevation="0dp"
+                android:id="@+id/apod_card_detail">
 
                 <ImageView
                     android:layout_width="match_parent"
