@@ -1,125 +1,152 @@
 package com.alexis.morison.nasaimages.apod.fragments
 
-import android.app.Activity
-import android.app.WallpaperManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.apod.adapters.ApodItemsAdapter
 import com.alexis.morison.nasaimages.apod.models.APOD
-import com.alexis.morison.nasaimages.services.UtilService
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import java.io.File
-import java.io.IOException
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.ArrayList
+import kotlin.Exception
 
-
-private const val itemParamExtra = "itemAPOD"
 
 class ApodFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
-    private lateinit var title: TextView
-    private lateinit var copyright: TextView
-    private lateinit var date: TextView
-    private lateinit var explanation: TextView
-    private lateinit var btnWallpaper: Button
-    private lateinit var btnWallpaperDownload: Button
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private var hdUrl = ""
+    private lateinit var progressBar: ProgressBar
 
-    private var itemData: APOD? = null
+    private var requestQueue: RequestQueue? = null
+
+    private val apiKey = "XdRrmURyk5bW91jnAyoHbaAngJrF8vKIiQiZI6AV"
+
+    private var apodList = mutableListOf<APOD>()
+
+    private var savedState: Bundle? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-
-            itemData = it.getSerializable(itemParamExtra) as APOD
-        }
+        requestQueue = Volley.newRequestQueue(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_apod, container, false)
 
         setViews(v)
 
-        setData()
+        if (savedState != null) {
 
-        setListeners()
+            apodList = savedState!!.getParcelableArrayList("data")!!
+
+            setRecyclerView()
+        }
+        else {
+            getLastApod()
+        }
 
         return v
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        savedState = Bundle()
+
+        savedState!!.putParcelableArrayList("data", ArrayList(apodList))
+    }
+
     private fun setViews(v: View) {
 
-        imageView = v.findViewById(R.id.apod_image_view)
-        title = v.findViewById(R.id.apod_title)
-        copyright = v.findViewById(R.id.apod_copyright)
-        date = v.findViewById(R.id.apod_date)
-        explanation = v.findViewById(R.id.apod_explanation)
-        btnWallpaper = v.findViewById(R.id.btn_set_wallpaper)
-        btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
+        progressBar = v.findViewById(R.id.apod_main_progress)
+        recyclerView = v.findViewById(R.id.apod_items_recycler)
     }
 
-    private fun setData() {
+    private fun setRecyclerView() {
 
-        title.text = itemData!!.title
-        copyright.text = itemData!!.copyright
-        date.text = itemData!!.date
-        explanation.text = itemData!!.explanation
-        hdUrl = itemData!!.hdurl
+        viewManager = LinearLayoutManager(context)
+        viewAdapter = ApodItemsAdapter(apodList)
 
-        Picasso.get()
-                .load(itemData!!.url)
-                .error(R.drawable.library)
-                .into(imageView)
-    }
+        progressBar.visibility = View.GONE
 
-    private fun setListeners() {
+        recyclerView.apply {
 
-        val utilService = UtilService(context, activity as Activity)
-
-        btnWallpaper.setOnClickListener {
-
-            utilService.askPermissions()
-
-            Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
-
-            utilService.downloadImage(hdUrl, true)
-        }
-
-        btnWallpaperDownload.setOnClickListener {
-
-            utilService.askPermissions()
-
-            Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
-
-            utilService.downloadImage(hdUrl, false)
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
     }
 
-    companion object {
+    private fun getLastApod() {
 
-        @JvmStatic
-        fun newInstance(param1: APOD) =
+        val current = LocalDateTime.now()
+        val last = current.minusDays(15)
 
-                ApodFragment().apply {
-                arguments = Bundle().apply {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                    putSerializable(itemParamExtra, param1)
+        val endDate = current.format(formatter)
+        val startDate = last.format(formatter)
+
+        val url = "https://api.nasa.gov/planetary/apod?start_date=$startDate&end_date=$endDate&api_key=$apiKey"
+
+        val json = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+
+                for (i in 0 until response.length()) {
+
+                    val oneApod: JSONObject = response.getJSONObject(i)
+
+                    if (oneApod.getString("media_type").toString() == "image") {
+
+                        var copy = ""
+
+                        try {
+                            copy = oneApod.getString("copyright")
+                        }
+                        catch (ex: Exception) {
+                            Log.d("asdasd", ex.message.toString())
+                        }
+
+                        val apodObject = APOD(
+                            copy,
+                            oneApod.getString("date"),
+                            oneApod.getString("explanation"),
+                            oneApod.getString("hdurl"),
+                            oneApod.getString("title"),
+                            oneApod.getString("url"),
+                        )
+
+                        apodList.add(apodObject)
+                    }
                 }
+
+                apodList.reverse()
+
+                setRecyclerView()
+            },
+            { _ ->
+                // Por error no hago nada..
             }
+        )
+
+        requestQueue?.add(json)
     }
 }

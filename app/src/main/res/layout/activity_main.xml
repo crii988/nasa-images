@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.MainActivity"
-    android:background="@color/base">
+    android:background="@color/base_dark">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:background="@color/base"
-            android:title="NASA Images"/>
+            android:title="NASA Images" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

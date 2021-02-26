@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.alexis.morison.nasaimages.apod.ApodActivity
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.container.ContainerActivity
 import com.alexis.morison.nasaimages.main.models.MainItem
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_apod.view.*
 import kotlinx.android.synthetic.main.main_menu_card.view.*
 
 
@@ -61,9 +62,7 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
                 val id = item.id
 
-                // En el futuro es necesario hacer un when id
-
-                val intent = Intent(context, ApodActivity::class.java).apply {
+                val intent = Intent(context, ContainerActivity::class.java).apply {
 
                     putExtra("id", id)
                 }
@@ -74,6 +73,8 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
         private fun getAPOD(view: View) {
 
+            view.main_card_progress.visibility = View.VISIBLE
+
             val url = "https://api.nasa.gov/planetary/apod?api_key=$apiKey"
 
             val json = JsonObjectRequest(Request.Method.GET, url, null,
@@ -83,11 +84,15 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
                         .load(response.getString("url"))
                         .error(R.drawable.apod)
                         .into(view.main_card_image)
+
+                    view.main_card_progress.visibility = View.GONE
                 },
                 { _ ->
                     Picasso.get()
                         .load(R.drawable.apod)
                         .into(view.main_card_image)
+
+                    view.main_card_progress.visibility = View.GONE
                 }
             )
 

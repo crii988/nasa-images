@@ -53,7 +53,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
                         )
                         //finish()
                     }
-                    .setNegativeButton("Deny") { dialog, id -> dialog.cancel() }
+                    .setNegativeButton("Deny") { dialog, _ -> dialog.cancel() }
                     .show()
             } else {
                 // No explanation needed, we can request the permission.
