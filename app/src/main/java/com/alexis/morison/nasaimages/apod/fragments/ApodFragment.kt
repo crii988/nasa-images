@@ -37,8 +37,6 @@ class ApodFragment : Fragment() {
 
     private var apodList = mutableListOf<APOD>()
 
-    private var savedState: Bundle? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

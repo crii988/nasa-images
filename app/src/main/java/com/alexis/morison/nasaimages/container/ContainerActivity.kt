@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.fragments.ApodFragment
 import com.alexis.morison.nasaimages.apod.models.APOD
+import com.alexis.morison.nasaimages.library.fragments.LibraryFormFragment
+import com.alexis.morison.nasaimages.library.fragments.LibraryFragment
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.apod_menu_card.*
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
@@ -49,7 +51,8 @@ class ContainerActivity : AppCompatActivity() {
                     toolbar.title = "Mars Rover Photos"
                 }
                 else -> {
-                    //loadFragment(ApodFragment())
+                    loadFragment(LibraryFormFragment())
+
                     toolbar.title = "NASA Image and Video Library"
                 }
             }

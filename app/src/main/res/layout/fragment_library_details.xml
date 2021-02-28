@@ -5,9 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".apod.fragments.ApodDetailsFragment"
-    android:background="@color/base_dark"
-    android:id="@+id/fragment_apod">
+    tools:context=".library.fragments.LibraryDetailsFragment"
+    android:background="@color/base_dark">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -27,13 +26,13 @@
                 card_view:strokeColor="@color/base_gray"
                 card_view:strokeWidth="0.1dp"
                 card_view:cardElevation="0dp"
-                android:id="@+id/apod_card_detail">
+                android:id="@+id/library_card_detail">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    android:id="@+id/apod_image_view"
+                    android:id="@+id/library_image_view"
                     android:background="@color/base_dark"/>
 
             </com.google.android.material.card.MaterialCardView>
@@ -45,31 +44,18 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/apod_title"
+                android:id="@+id/library_title"
                 android:textColor="@color/gray_lightest"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:id="@+id/apod_copyright"
-                    android:textColor="@color/gray_lightest" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAlignment="viewEnd"
-                    android:id="@+id/apod_date"
-                    android:textColor="@color/gray_lightest"/>
-
-            </LinearLayout>
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:justificationMode="inter_word"
+                android:id="@+id/library_date"
+                android:textColor="@color/gray_lightest"
+                android:layout_gravity="end"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,7 +63,7 @@
                 android:text=""
                 android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
-                android:id="@+id/apod_explanation"
+                android:id="@+id/library_description"
                 android:textColor="@color/gray_lightest"
                 android:textIsSelectable="true"/>
 
@@ -85,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="Set as wallpaper"
-                android:id="@+id/btn_set_wallpaper"
+                android:id="@+id/btn_set_wallpaper_library"
                 android:layout_marginVertical="20dp"
                 app:cornerRadius="20dp"/>
 
@@ -94,7 +80,7 @@
                 android:layout_height="70dp"
                 android:text="Download image"
                 android:layout_marginBottom="20dp"
-                android:id="@+id/btn_download_wallpaper"
+                android:id="@+id/btn_download_wallpaper_library"
                 app:cornerRadius="20dp"/>
 
         </LinearLayout>

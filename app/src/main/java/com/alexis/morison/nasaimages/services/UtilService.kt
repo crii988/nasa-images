@@ -184,8 +184,12 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
             sendNotification(
                     "Wallpaper set successfully",
-                    "The wallpaper is in the folder $directory",
+                    "Enjoy your wallpaper :)",
                     R.drawable.ic_baseline_check_circle_outline_24)
+
+            val fileWallpaper = File(filePath)
+
+            if (fileWallpaper.exists()) fileWallpaper.delete()
         }
         catch (e: Exception) {
 
@@ -193,6 +197,8 @@ class UtilService(private val context: Context?, private val activity: Activity)
                     "Setting wallpaper failed",
                     "Please try again",
                     R.drawable.ic_baseline_error_outline_24)
+
+            Log.d("asdasd", e.message.toString())
         }
     }
 
