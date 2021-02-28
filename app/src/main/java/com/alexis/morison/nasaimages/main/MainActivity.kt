@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             //MainItem(2, "Earth", "Unlock the significant public investment in earth observation data"),
             //MainItem(3, "EPIC", "Earth Polychromatic Imaging Camera"),
             //MainItem(4, "Mars Rover Photos", "Image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars"),
-            MainItem(5, "NASA Image and Video Library", "Access to the NASA Image and Video Library site at images.nasa.gov"),
+            MainItem(5, "NASA Image Library", "Access to the NASA Image Library site at images.nasa.gov"),
         )
 
         viewManager = LinearLayoutManager(this)

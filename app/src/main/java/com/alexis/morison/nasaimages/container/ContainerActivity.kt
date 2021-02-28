@@ -53,7 +53,7 @@ class ContainerActivity : AppCompatActivity() {
                 else -> {
                     loadFragment(LibraryFormFragment())
 
-                    toolbar.title = "NASA Image and Video Library"
+                    toolbar.title = "NASA Image Library"
                 }
             }
         }
