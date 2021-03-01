@@ -2,9 +2,17 @@
 
 App que consume de las APIs de la NASA para poder usar sus imagenes como fondo de pantalla.
 
-    Desarrollada en Kotlin.
+    La aplicación no está terminada, modulos:
+    * APOD
+    * NASA Image Library
 
-> La aplicación no está terminada, solo está hecho el modulo APOD.
+## APK
+
+Para descargar la aplicacion, ingresar al siguiente link:
+
+https://github.com/alexismorison95/nasa-images/tree/main/apk
+
+Preferiblemente desde el navegador Google Chrome
 
 ## Capturas
 
