@@ -36,6 +36,17 @@
                     android:id="@+id/apod_image_view"
                     android:background="@color/base_dark"/>
 
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="end|bottom"
+                    android:button="@drawable/checkbox"
+                    android:theme="@style/CheckBox"
+                    android:layout_marginEnd="-10dp"
+                    android:id="@+id/apod_check"/>
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -78,8 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
                 android:id="@+id/apod_explanation"
-                android:textColor="@color/gray_lightest"
-                android:textIsSelectable="true"/>
+                android:textColor="@color/gray_lightest"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"

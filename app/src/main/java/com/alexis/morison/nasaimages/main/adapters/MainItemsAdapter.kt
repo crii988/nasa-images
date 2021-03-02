@@ -55,7 +55,8 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
                 2 -> getDrawable(main_card_image, R.drawable.earth)
                 3 -> getDrawable(main_card_image, R.drawable.epic)
                 4 -> getDrawable(main_card_image, R.drawable.rover)
-                else -> getDrawable(main_card_image, R.drawable.library)
+                5 -> getDrawable(main_card_image, R.drawable.library)
+                else -> getDrawable(main_card_image, R.drawable.apod)
             }
 
             main_card.setOnClickListener {

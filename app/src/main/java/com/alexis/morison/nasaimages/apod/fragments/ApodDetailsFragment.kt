@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.ViewCompat
 import androidx.core.widget.NestedScrollView
 import androidx.transition.TransitionInflater
@@ -37,6 +34,7 @@ class ApodDetailsFragment : Fragment() {
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
     private lateinit var card: MaterialCardView
+    private lateinit var check: CheckBox
 
     private var hdUrl = ""
 
@@ -74,6 +72,7 @@ class ApodDetailsFragment : Fragment() {
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
         card = v.findViewById(R.id.apod_card_detail)
+        check = v.findViewById(R.id.apod_check)
     }
 
     private fun setData() {
@@ -92,7 +91,7 @@ class ApodDetailsFragment : Fragment() {
 
     private fun setListeners() {
 
-        val utilService = UtilService(context, activity as Activity)
+        val utilService = UtilService(context)
 
         btnWallpaper.setOnClickListener {
 
@@ -104,6 +103,13 @@ class ApodDetailsFragment : Fragment() {
             Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
             utilService.downloadImage(hdUrl, UtilService.FLAG_NOT_SET_WALLPAPER)
+        }
+
+        check.setOnClickListener {
+
+            if (check.isChecked) {
+
+            }
         }
     }
 

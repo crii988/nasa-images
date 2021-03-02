@@ -35,6 +35,17 @@
                     android:id="@+id/library_image_view"
                     android:background="@color/base_dark"/>
 
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="end|bottom"
+                    android:button="@drawable/checkbox"
+                    android:theme="@style/CheckBox"
+                    android:layout_marginEnd="-10dp"
+                    android:id="@+id/library_check"/>
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -52,10 +63,21 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:layout_marginTop="10dp"
-                android:justificationMode="inter_word"
                 android:id="@+id/library_date"
                 android:textColor="@color/gray_lightest"
                 android:layout_gravity="end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keywords"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/gray_lightest"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -64,8 +86,7 @@
                 android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
                 android:id="@+id/library_description"
-                android:textColor="@color/gray_lightest"
-                android:textIsSelectable="true"/>
+                android:textColor="@color/gray_lightest"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"

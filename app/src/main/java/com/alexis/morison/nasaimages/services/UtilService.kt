@@ -10,9 +10,12 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -20,7 +23,7 @@ import androidx.core.content.ContextCompat
 import com.alexis.morison.nasaimages.R
 import java.io.File
 
-class UtilService(private val context: Context?, private val activity: Activity) {
+class UtilService(private val context: Context?) {
 
     @TargetApi(Build.VERSION_CODES.M)
     fun askPermissions() {
@@ -70,6 +73,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
     private var status: Int? = null
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun downloadImage(url: String, flag: Int) {
 
         askPermissions()
@@ -128,7 +132,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
                 DownloadManager.STATUS_FAILED -> {
 
-                    val title = if (flag != -1)
+                    val title = if (flag != FLAG_NOT_SET_WALLPAPER)
                         "Setting wallpaper failed"
                     else
                         "Download image failed"
@@ -138,7 +142,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
 
                 DownloadManager.STATUS_SUCCESSFUL -> {
 
-                    if (flag != -1) {
+                    if (flag != FLAG_NOT_SET_WALLPAPER) {
 
                         setWallpaperManager(directory, url, flag)
                     }
@@ -152,6 +156,7 @@ class UtilService(private val context: Context?, private val activity: Activity)
         }).start()
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun setWallpaperManager(directory: File, url: String, flag: Int) {
 
         val wallManager = WallpaperManager.getInstance(context)
@@ -187,9 +192,18 @@ class UtilService(private val context: Context?, private val activity: Activity)
                     "Enjoy your wallpaper :)",
                     R.drawable.ic_baseline_check_circle_outline_24)
 
-            val fileWallpaper = File(filePath)
+            try {
+                val contentResolver = context!!.contentResolver
 
-            if (fileWallpaper.exists()) fileWallpaper.delete()
+                contentResolver.delete(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Images.Media.DATA + "=?",
+                        arrayOf(filePath))
+            }
+            catch (e: Exception) {
+
+                Log.d("asdasd", e.message.toString())
+            }
         }
         catch (e: Exception) {
 

@@ -8,4 +8,6 @@ data class Library(
         val nasa_id: String,
         val description: String,
         val date_created: String,
+        val keywords: List<String>,
+        val query: String,
 ) : Serializable

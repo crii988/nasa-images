@@ -23,7 +23,7 @@ class ContainerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
 
-        toolbar = toolbar_id
+        toolbar = toolbar_id_container
 
         toolbar.setNavigationOnClickListener {
 
@@ -50,10 +50,15 @@ class ContainerActivity : AppCompatActivity() {
                     //loadFragment(ApodFragment())
                     toolbar.title = "Mars Rover Photos"
                 }
-                else -> {
+                5 -> {
                     loadFragment(LibraryFormFragment())
 
                     toolbar.title = "NASA Image Library"
+                }
+                else -> {
+                    //loadFragment(LibraryFormFragment())
+
+                    toolbar.title = "Favorites"
                 }
             }
         }

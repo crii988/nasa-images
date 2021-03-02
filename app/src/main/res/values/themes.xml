@@ -37,4 +37,9 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <style name="CheckBox" parent="">
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+    </style>
+
 </resources>
