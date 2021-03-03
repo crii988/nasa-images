@@ -36,16 +36,16 @@
                     android:id="@+id/apod_image_view"
                     android:background="@color/base_dark"/>
 
-                <CheckBox
+                <!--<CheckBox
+                    android:id="@+id/apod_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:background="@android:color/transparent"
                     android:layout_gravity="end|bottom"
-                    android:button="@drawable/checkbox"
-                    android:theme="@style/CheckBox"
                     android:layout_marginEnd="-10dp"
-                    android:id="@+id/apod_check"/>
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/checkbox"
+                    android:text=""
+                    android:theme="@style/CheckBox" />-->
 
             </com.google.android.material.card.MaterialCardView>
 

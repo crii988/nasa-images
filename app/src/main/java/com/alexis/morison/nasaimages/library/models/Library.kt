@@ -9,5 +9,6 @@ data class Library(
         val description: String,
         val date_created: String,
         val keywords: List<String>,
+        val center: String,
         val query: String,
 ) : Serializable

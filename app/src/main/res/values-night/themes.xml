@@ -42,4 +42,10 @@
         <item name="colorSecondary">@color/white</item>
     </style>
 
+    <style name="Slider" parent="Widget.MaterialComponents.Slider">
+        <item name="colorPrimary">@color/base</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/base_dark</item>
+    </style>
+
 </resources>

@@ -1,25 +1,15 @@
 package com.alexis.morison.nasaimages.apod.adapters
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.alexis.morison.nasaimages.container.ContainerActivity
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.fragments.ApodDetailsFragment
-import com.alexis.morison.nasaimages.apod.fragments.ApodFragment
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
-import kotlinx.android.synthetic.main.fragment_apod_details.view.*
 
 class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<ApodItemsAdapter.ViewHolder>() {
 

@@ -89,7 +89,7 @@ class LibraryFragment : Fragment() {
         recyclerView = v.findViewById(R.id.library_items_recycler)
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
-        toolbar.title = query
+        toolbar.title = query.capitalize(Locale.getDefault())
     }
 
     private fun setListeners() {
@@ -147,7 +147,11 @@ class LibraryFragment : Fragment() {
 
         query = query.toLowerCase(Locale.getDefault())
 
-        val url = "https://images-api.nasa.gov/search?q=$query&page=$page&year_start=$startDate&year_end=$endDate&media_type=image"
+        val url = "https://images-api.nasa.gov/search?q=$query" +
+                "&page=$page" +
+                "&year_start=$startDate" +
+                "&year_end=$endDate" +
+                "&media_type=image"
 
         progressBar.visibility = View.VISIBLE
 
@@ -183,6 +187,11 @@ class LibraryFragment : Fragment() {
                                 .getJSONObject(0)
                                 .getString("date_created").toString()
 
+                        val center = oneLibrary
+                                .getJSONArray("data")
+                                .getJSONObject(0)
+                                .getString("center").toString()
+
                         var keywordsJson = JSONArray()
 
                         try {
@@ -209,7 +218,15 @@ class LibraryFragment : Fragment() {
                                 .getJSONObject(0)
                                 .getString("href").toString()
 
-                        val libraryObj = Library(title, href, nasaID, description, dateFormatted, keywords, query)
+                        val libraryObj = Library(
+                                title,
+                                href,
+                                nasaID,
+                                description,
+                                dateFormatted,
+                                keywords,
+                                center,
+                                query)
 
                         libraryList.add(libraryObj)
                     }

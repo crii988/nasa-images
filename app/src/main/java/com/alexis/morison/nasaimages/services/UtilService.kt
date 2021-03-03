@@ -73,7 +73,6 @@ class UtilService(private val context: Context?) {
 
     private var status: Int? = null
 
-    @RequiresApi(Build.VERSION_CODES.R)
     fun downloadImage(url: String, flag: Int) {
 
         askPermissions()
@@ -156,7 +155,6 @@ class UtilService(private val context: Context?) {
         }).start()
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
     private fun setWallpaperManager(directory: File, url: String, flag: Int) {
 
         val wallManager = WallpaperManager.getInstance(context)

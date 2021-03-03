@@ -35,7 +35,7 @@
                     android:id="@+id/library_image_view"
                     android:background="@color/base_dark"/>
 
-                <CheckBox
+                <!--<CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -44,7 +44,7 @@
                     android:button="@drawable/checkbox"
                     android:theme="@style/CheckBox"
                     android:layout_marginEnd="-10dp"
-                    android:id="@+id/library_check"/>
+                    android:id="@+id/library_check"/>-->
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -58,14 +58,34 @@
                 android:id="@+id/library_title"
                 android:textColor="@color/gray_lightest"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:layout_marginTop="10dp"
-                android:id="@+id/library_date"
-                android:textColor="@color/gray_lightest"
-                android:layout_gravity="end"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Center: "
+                    android:textColor="@color/gray_lightest" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/library_center"
+                    android:textColor="@color/gray_lightest" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAlignment="viewEnd"
+                    android:id="@+id/library_date"
+                    android:textColor="@color/gray_lightest"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

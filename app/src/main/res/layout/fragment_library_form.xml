@@ -20,7 +20,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
                 app:startIconDrawable="@drawable/ic_baseline_search_24"
                 app:endIconMode="clear_text"
                 android:hint="Search for"
@@ -35,59 +37,26 @@
                     android:textColor="@color/white"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionSearch"
                     android:id="@+id/search_input" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Narrow by year"
+                android:layout_marginHorizontal="20dp"
+                android:textColor="@color/white"/>
+
+            <com.google.android.material.slider.RangeSlider
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                app:endIconMode="clear_text"
-                android:hint="Start year"
-                android:theme="@style/input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/base_dark"
-                app:boxStrokeWidthFocused="0.1dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:text=""
-                    android:id="@+id/start_date_input"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                app:endIconMode="clear_text"
-                android:hint="End year"
-                android:theme="@style/input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundColor="@color/base_dark"
-                app:boxStrokeWidthFocused="0.1dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:inputType="number"
-                    android:imeOptions="actionDone"
-                    android:text=""
-                    android:id="@+id/end_date_input"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:id="@+id/slider_years"
+                android:stepSize="1"
+                android:theme="@style/Slider"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"

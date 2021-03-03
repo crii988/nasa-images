@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             //MainItem(3, "EPIC", "Earth Polychromatic Imaging Camera"),
             //MainItem(4, "Mars Rover Photos", "Image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars"),
             MainItem(5, "NASA Image Library", "Access to the NASA Image Library site at images.nasa.gov"),
-            MainItem(6, "Favorites", "Images that you liked"),
+            //MainItem(6, "Favorites", "Images that you liked"),
         )
 
         viewManager = LinearLayoutManager(this)

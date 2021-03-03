@@ -1,11 +1,6 @@
 package com.alexis.morison.nasaimages.library.fragments
 
-import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +8,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import com.alexis.morison.nasaimages.R
-import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.library.models.Library
 import com.alexis.morison.nasaimages.services.UtilService
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
-import org.json.JSONObject
 import java.util.*
 
 private const val itemParamExtra = "itemID"
@@ -36,6 +28,7 @@ class LibraryDetailsFragment : Fragment() {
     private lateinit var title: TextView
     private lateinit var description: TextView
     private lateinit var date: TextView
+    private lateinit var center: TextView
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
     private lateinit var chipGroup: ChipGroup
@@ -76,12 +69,13 @@ class LibraryDetailsFragment : Fragment() {
         title = v.findViewById(R.id.library_title)
         description = v.findViewById(R.id.library_description)
         date = v.findViewById(R.id.library_date)
+        center = v.findViewById(R.id.library_center)
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper_library)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper_library)
         chipGroup = v.findViewById(R.id.chipGroup)
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
-        toolbar.title = itemData!!.query
+        toolbar.title = itemData!!.query.capitalize(Locale.getDefault())
     }
 
     private fun setData() {
@@ -89,11 +83,17 @@ class LibraryDetailsFragment : Fragment() {
         title.text = itemData!!.title
         description.text = itemData!!.description
         date.text = itemData!!.date_created
+        center.text = itemData!!.center
+
+        Picasso.get()
+                .load(itemData!!.href)
+                .error(R.drawable.library)
+                .into(imageView)
 
         itemData!!.keywords.forEach {
 
             val chip = Chip(context)
-            chip.text = it.toLowerCase(Locale.getDefault())
+            chip.text = it
 
             chip.setOnClickListener {
 
@@ -101,7 +101,9 @@ class LibraryDetailsFragment : Fragment() {
 
                 val fragmentTransaction = fm.supportFragmentManager.beginTransaction()
 
-                fragmentTransaction.replace(R.id.fragmentContainer, LibraryFormFragment.newInstance(chip.text.toString()))
+                fragmentTransaction.replace(
+                        R.id.fragmentContainer,
+                        LibraryFormFragment.newInstance(chip.text.toString().toLowerCase(Locale.getDefault())))
 
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
@@ -109,40 +111,6 @@ class LibraryDetailsFragment : Fragment() {
 
             chipGroup.addView(chip)
         }
-
-        Picasso.get()
-                .load(itemData!!.href)
-                .error(R.drawable.library)
-                .into(imageView)
-    }
-
-    private fun getImageById(utilService: UtilService, tag: Int) {
-
-        val url = "https://images-api.nasa.gov/asset/${itemData!!.nasa_id}"
-
-        val json = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response ->
-
-                    val items = response.getJSONObject("collection").getJSONArray("items")
-
-                    val origImage = items.getJSONObject(0).getString("href").toString()
-
-                    val newUrl = origImage.replace("http", "https")
-
-                    if (tag != UtilService.FLAG_NOT_SET_WALLPAPER) {
-
-                        Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
-                    }
-
-                    utilService.downloadImage(newUrl, tag)
-                },
-                { _ ->
-                    Toast.makeText(context, "Error, try again", Toast.LENGTH_SHORT).show()
-                }
-        )
-
-        requestQueue?.add(json)
     }
 
     private fun setListeners() {
@@ -177,6 +145,35 @@ class LibraryDetailsFragment : Fragment() {
             }
             show()
         }
+    }
+
+    private fun getImageById(utilService: UtilService, tag: Int) {
+
+        val url = "https://images-api.nasa.gov/asset/${itemData!!.nasa_id}"
+
+        val json = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
+
+                    val items = response.getJSONObject("collection").getJSONArray("items")
+
+                    val origImage = items.getJSONObject(0).getString("href").toString()
+
+                    val hdUrl = origImage.replace("http", "https")
+
+                    if (tag != UtilService.FLAG_NOT_SET_WALLPAPER) {
+
+                        Toast.makeText(context, "Setting wallpaper", Toast.LENGTH_SHORT).show()
+                    }
+
+                    utilService.downloadImage(hdUrl, tag)
+                },
+                { _ ->
+                    Toast.makeText(context, "Error, try again", Toast.LENGTH_SHORT).show()
+                }
+        )
+
+        requestQueue?.add(json)
     }
 
     companion object {

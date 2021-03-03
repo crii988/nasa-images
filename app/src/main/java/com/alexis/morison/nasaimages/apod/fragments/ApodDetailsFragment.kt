@@ -1,26 +1,17 @@
 package com.alexis.morison.nasaimages.apod.fragments
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.ViewCompat
-import androidx.core.widget.NestedScrollView
-import androidx.transition.TransitionInflater
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_container.*
-import kotlinx.android.synthetic.main.fragment_apod_details.*
 
 private const val itemParamExtra = "itemAPOD"
 
@@ -72,7 +63,7 @@ class ApodDetailsFragment : Fragment() {
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
         card = v.findViewById(R.id.apod_card_detail)
-        check = v.findViewById(R.id.apod_check)
+        //check = v.findViewById(R.id.apod_check)
     }
 
     private fun setData() {
@@ -103,13 +94,6 @@ class ApodDetailsFragment : Fragment() {
             Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
             utilService.downloadImage(hdUrl, UtilService.FLAG_NOT_SET_WALLPAPER)
-        }
-
-        check.setOnClickListener {
-
-            if (check.isChecked) {
-
-            }
         }
     }
 
