@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="semi_transparent">#31000000</color>
+    <color name="semi_transparent_white">#31FFFFFF</color>
     <color name="semi_transparent2">#83FFFFFF</color>
     <color name="primary_darker_nasa">#0b3d91</color>
     <color name="primary_nasa">#105bd8</color>

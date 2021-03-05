@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.Toolbar
 import androidx.fragment.app.FragmentActivity
 import com.alexis.morison.nasaimages.R
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.slider.RangeSlider
 import com.google.android.material.textfield.TextInputEditText
 import java.time.Year
@@ -24,7 +25,7 @@ class LibraryFormFragment : Fragment() {
     private lateinit var searcBtn: Button
     private lateinit var slider: RangeSlider
 
-    private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: MaterialToolbar
 
     private var query = ""
     private var startYear = 1920
@@ -67,7 +68,7 @@ class LibraryFormFragment : Fragment() {
         slider.values = listOf(1920.0F, Year.now().value.toFloat())
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
-        toolbar.title = "NASA Image Library"
+        toolbar.title = resources.getString(R.string.library_title)
     }
 
     private fun setListeners() {

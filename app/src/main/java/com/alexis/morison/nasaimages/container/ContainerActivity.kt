@@ -11,13 +11,15 @@ import com.alexis.morison.nasaimages.apod.fragments.ApodFragment
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.library.fragments.LibraryFormFragment
 import com.alexis.morison.nasaimages.library.fragments.LibraryFragment
+import com.alexis.morison.nasaimages.rovers.fragments.RoverFormFragment
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.apod_menu_card.*
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
 
 class ContainerActivity : AppCompatActivity() {
 
-    private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +37,7 @@ class ContainerActivity : AppCompatActivity() {
 
                 1 -> {
                     loadFragment(ApodFragment())
-
-                    toolbar.title = "APOD"
+                    toolbar.title = resources.getString(R.string.apod_title)
                 }
                 2 -> {
                     //loadFragment(ApodFragment())
@@ -47,17 +48,15 @@ class ContainerActivity : AppCompatActivity() {
                     toolbar.title = "EPIC"
                 }
                 4 -> {
-                    //loadFragment(ApodFragment())
-                    toolbar.title = "Mars Rover Photos"
+                    loadFragment(RoverFormFragment())
+                    toolbar.title = resources.getString(R.string.rovers_title)
                 }
                 5 -> {
                     loadFragment(LibraryFormFragment())
-
-                    toolbar.title = "NASA Image Library"
+                    toolbar.title = resources.getString(R.string.library_title)
                 }
                 else -> {
                     //loadFragment(LibraryFormFragment())
-
                     toolbar.title = "Favorites"
                 }
             }

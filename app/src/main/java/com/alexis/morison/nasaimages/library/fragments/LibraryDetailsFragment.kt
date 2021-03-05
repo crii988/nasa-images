@@ -14,9 +14,11 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.jsibbold.zoomage.ZoomageView
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -24,7 +26,7 @@ private const val itemParamExtra = "itemID"
 
 class LibraryDetailsFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
+    private lateinit var imageView: ZoomageView
     private lateinit var title: TextView
     private lateinit var description: TextView
     private lateinit var date: TextView
@@ -33,7 +35,7 @@ class LibraryDetailsFragment : Fragment() {
     private lateinit var btnWallpaperDownload: Button
     private lateinit var chipGroup: ChipGroup
 
-    private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: MaterialToolbar
 
     private var itemData: Library? = null
     private var requestQueue: RequestQueue? = null
@@ -83,7 +85,7 @@ class LibraryDetailsFragment : Fragment() {
         title.text = itemData!!.title
         description.text = itemData!!.description
         date.text = itemData!!.date_created
-        center.text = itemData!!.center
+        center.text = " " + itemData!!.center
 
         Picasso.get()
                 .load(itemData!!.href)
@@ -134,7 +136,7 @@ class LibraryDetailsFragment : Fragment() {
 
         val options = arrayOf("Main screen", "Lock screen", "Main and lock screen")
 
-        val builder = context?.let { MaterialAlertDialogBuilder(it, R.style.ThemeOverlay_MaterialComponents_Dark) }
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
 
         with(builder) {
 

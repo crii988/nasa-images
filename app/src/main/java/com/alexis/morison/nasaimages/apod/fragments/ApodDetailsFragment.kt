@@ -11,21 +11,23 @@ import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.jsibbold.zoomage.ZoomageView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.apod_menu_card.view.*
 
 private const val itemParamExtra = "itemAPOD"
 
 class ApodDetailsFragment : Fragment() {
 
-    private lateinit var imageView: ImageView
+    private lateinit var imageView: ZoomageView
     private lateinit var title: TextView
     private lateinit var copyright: TextView
     private lateinit var date: TextView
     private lateinit var explanation: TextView
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
-    private lateinit var card: MaterialCardView
-    private lateinit var check: CheckBox
+    //private lateinit var card: MaterialCardView
+    //private lateinit var check: CheckBox
 
     private var hdUrl = ""
 
@@ -62,7 +64,7 @@ class ApodDetailsFragment : Fragment() {
         explanation = v.findViewById(R.id.apod_explanation)
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
-        card = v.findViewById(R.id.apod_card_detail)
+        //card = v.findViewById(R.id.apod_card_detail)
         //check = v.findViewById(R.id.apod_check)
     }
 
@@ -101,7 +103,7 @@ class ApodDetailsFragment : Fragment() {
 
         val options = arrayOf("Main screen", "Lock screen", "Main and lock screen")
 
-        val builder = context?.let { MaterialAlertDialogBuilder(it, R.style.ThemeOverlay_MaterialComponents_Dark) }
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
 
         with(builder) {
 

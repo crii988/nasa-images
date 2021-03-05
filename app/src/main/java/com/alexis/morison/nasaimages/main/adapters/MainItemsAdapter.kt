@@ -1,6 +1,9 @@
 package com.alexis.morison.nasaimages.main.adapters
 
 import android.content.Intent
+import android.transition.AutoTransition
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +12,15 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.container.ContainerActivity
+import com.alexis.morison.nasaimages.main.MainActivity
 import com.alexis.morison.nasaimages.main.models.MainItem
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.apod_menu_card.view.*
 import kotlinx.android.synthetic.main.fragment_apod.view.*
 import kotlinx.android.synthetic.main.main_menu_card.view.*
 
@@ -46,6 +52,7 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
             main_card_title.text = item.title
             main_card_description.text = item.description
+            text_view_more_info.text = item.more_info
 
             requestQueue = Volley.newRequestQueue(context)
 
@@ -70,6 +77,19 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
                 startActivity(context, intent, null)
             }
+
+            btn_more_info.setOnClickListener {
+
+                if (text_view_more_info.visibility == View.GONE) {
+
+                    text_view_more_info.visibility = View.VISIBLE
+                    btn_more_info.text = "Less info"
+                }
+                else {
+                    text_view_more_info.visibility = View.GONE
+                    btn_more_info.text = "More info"
+                }
+            }
         }
 
         private fun getAPOD(view: View) {
@@ -84,9 +104,16 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
                     Picasso.get()
                         .load(response.getString("url"))
                         .error(R.drawable.apod)
-                        .into(view.main_card_image)
+                        .into(view.main_card_image, object: Callback {
 
-                    view.main_card_progress.visibility = View.GONE
+                            override fun onSuccess() {
+                                view.main_card_progress.visibility = View.GONE
+                            }
+
+                            override fun onError(e: Exception?) {
+                                view.main_card_progress.visibility = View.GONE
+                            }
+                        })
                 },
                 { _ ->
                     Picasso.get()

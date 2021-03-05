@@ -13,8 +13,10 @@ import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.library.fragments.LibraryDetailsFragment
 import com.alexis.morison.nasaimages.library.fragments.LibraryFragment
 import com.alexis.morison.nasaimages.library.models.Library
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
+import kotlinx.android.synthetic.main.fragment_library.view.*
 import kotlinx.android.synthetic.main.library_menu_card.view.*
 
 class LibraryItemsAdapter(private val items: List<Library>) : RecyclerView.Adapter<LibraryItemsAdapter.ViewHolder>() {
@@ -36,11 +38,21 @@ class LibraryItemsAdapter(private val items: List<Library>) : RecyclerView.Adapt
         fun bind(item: Library) = with(v) {
 
             library_card_title.text = item.title
+            library_card_date.text = item.date_created
 
             Picasso.get()
                 .load(item.href)
                 .error(R.drawable.apod)
-                .into(library_card_image)
+                .into(library_card_image, object: Callback {
+
+                    override fun onSuccess() {
+                        library_card_progress.visibility = View.GONE
+                    }
+
+                    override fun onError(e: Exception?) {
+                        library_card_progress.visibility = View.GONE
+                    }
+                })
 
             library_card.setOnClickListener {
 

@@ -92,7 +92,10 @@ class ApodFragment : Fragment() {
         val endDate = current.format(formatter)
         val startDate = last.format(formatter)
 
-        val url = "https://api.nasa.gov/planetary/apod?start_date=$startDate&end_date=$endDate&api_key=$apiKey"
+        val url = "https://api.nasa.gov/planetary/apod?" +
+                "start_date=$startDate" +
+                "&end_date=$endDate" +
+                "&api_key=$apiKey"
 
         val json = JsonArrayRequest(
             Request.Method.GET, url, null,

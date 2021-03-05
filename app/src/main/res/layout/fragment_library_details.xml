@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".library.fragments.LibraryDetailsFragment"
-    android:background="@color/base_dark">
+    tools:context=".library.fragments.LibraryDetailsFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,18 +21,30 @@
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                card_view:strokeColor="@color/base_gray"
-                card_view:strokeWidth="0.1dp"
+                app:cardCornerRadius="8dp"
                 card_view:cardElevation="0dp"
                 android:id="@+id/library_card_detail">
 
-                <ImageView
+                <!--<ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
+                    android:id="@+id/library_image_view"/>-->
+
+                <com.jsibbold.zoomage.ZoomageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="400dp"
+                    app:zoomage_restrictBounds="false"
+                    app:zoomage_animateOnReset="true"
+                    app:zoomage_autoResetMode="UNDER"
+                    app:zoomage_autoCenter="true"
+                    app:zoomage_zoomable="true"
+                    app:zoomage_translatable="true"
+                    app:zoomage_minScale="1"
+                    app:zoomage_maxScale="3"
                     android:id="@+id/library_image_view"
-                    android:background="@color/base_dark"/>
+                    android:scaleType="centerCrop"/>
 
                 <!--<CheckBox
                     android:layout_width="wrap_content"
@@ -48,15 +59,37 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <CheckBox
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:button="@drawable/checkbox"
+                    android:layout_marginEnd="16dp"
+                    android:buttonTint="@color/primary_nasa"
+                    android:layout_marginTop="1dp"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_share_24"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginTop="20dp"
                 android:id="@+id/library_title"
-                android:textColor="@color/gray_lightest"/>
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,15 +100,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Center: "
-                    android:textColor="@color/gray_lightest" />
+                    android:text="@string/text_view_center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/library_center"
-                    android:textColor="@color/gray_lightest" />
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColor"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -83,16 +118,19 @@
                     android:text=""
                     android:textAlignment="viewEnd"
                     android:id="@+id/library_date"
-                    android:textColor="@color/gray_lightest"/>
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColor"/>
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Keywords"
+                android:text="@string/text_view_keywords"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/gray_lightest"/>
+                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="?android:attr/textColor"/>
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
@@ -106,23 +144,24 @@
                 android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
                 android:id="@+id/library_description"
-                android:textColor="@color/gray_lightest"/>
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColor"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Set as wallpaper"
+                android:text="@string/btn_set_wallpaper"
                 android:id="@+id/btn_set_wallpaper_library"
                 android:layout_marginVertical="20dp"
-                app:cornerRadius="20dp"/>
+                app:cornerRadius="8dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Download image"
+                android:text="@string/btn_download_image"
                 android:layout_marginBottom="20dp"
                 android:id="@+id/btn_download_wallpaper_library"
-                app:cornerRadius="20dp"/>
+                app:cornerRadius="8dp"/>
 
         </LinearLayout>
 

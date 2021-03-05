@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.fragments.ApodDetailsFragment
 import com.alexis.morison.nasaimages.apod.models.APOD
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.apod_menu_card.view.*
+import kotlinx.android.synthetic.main.main_menu_card.view.*
 
 class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<ApodItemsAdapter.ViewHolder>() {
 
@@ -35,7 +37,16 @@ class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<Apo
             Picasso.get()
                 .load(item.url)
                 .error(R.drawable.apod)
-                .into(apod_card_image)
+                .into(apod_card_image, object:Callback {
+
+                    override fun onSuccess() {
+                        apod_card_progress.visibility = View.GONE
+                    }
+
+                    override fun onError(e: Exception?) {
+                        apod_card_progress.visibility = View.GONE
+                    }
+                })
 
             apod_card.setOnClickListener {
 

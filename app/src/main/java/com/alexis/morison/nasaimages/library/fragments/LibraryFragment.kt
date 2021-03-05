@@ -17,6 +17,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import org.json.JSONArray
 import java.util.*
@@ -35,7 +36,7 @@ class LibraryFragment : Fragment() {
     private lateinit var btnNextPage: MaterialButton
     private lateinit var btnPrevPage: MaterialButton
 
-    private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: MaterialToolbar
 
     private var requestQueue: RequestQueue? = null
 

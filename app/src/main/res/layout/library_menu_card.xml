@@ -3,22 +3,97 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    card_view:cardCornerRadius="20dp"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="8dp"
     android:layout_marginHorizontal="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:id="@+id/library_card"
-    card_view:strokeColor="@color/base_gray"
-    card_view:strokeWidth="0.1dp"
-    card_view:cardElevation="0dp">
+    card_view:cardElevation="4dp">
 
-    <FrameLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/library_card_image"
+                android:scaleType="centerCrop"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/primary_nasa"
+                android:id="@+id/library_card_progress"
+                android:visibility="visible"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:id="@+id/library_card_title"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/library_card_date"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="-10dp"
+            android:layout_gravity="end">
+
+            <CheckBox
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:button="@drawable/checkbox"
+                android:layout_marginEnd="16dp"
+                android:buttonTint="@color/primary_nasa"
+                android:layout_marginTop="1dp"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_share_24"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+<!--    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/base">
+        android:theme="@style/CardBackground">
 
         <ImageView
             android:layout_width="match_parent"
@@ -31,6 +106,14 @@
             android:layout_height="match_parent"
             android:background="@color/semi_transparent"/>
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/primary_nasa"
+            android:id="@+id/library_card_progress"
+            android:visibility="visible"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +124,6 @@
             android:layout_gravity="bottom"
             android:layout_margin="20dp"/>
 
-    </FrameLayout>
+    </FrameLayout>-->
 
 </com.google.android.material.card.MaterialCardView>
