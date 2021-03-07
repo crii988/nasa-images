@@ -45,12 +45,12 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
-    <style name="CardBackground" parent="">
-        <item name="background">@color/white</item>
+    <style name="Progress" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/primary_nasa_light</item>
     </style>
 
-    <style name="TextViews" parent="">
-        <item name="android:textColor">@color/base</item>
+    <style name="Divider" parent="">
+        <item name="android:background">@color/gray_light</item>
     </style>
 
 </resources>

@@ -2,20 +2,29 @@ package com.alexis.morison.nasaimages.main
 
 import android.app.slice.Slice
 import android.app.slice.SliceItem
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.container.ContainerActivity
 import com.alexis.morison.nasaimages.main.adapters.MainItemsAdapter
 import com.alexis.morison.nasaimages.main.models.MainItem
+import com.alexis.morison.nasaimages.settings.SettingsFragment
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        loadTheme()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -38,6 +50,22 @@ class MainActivity : AppCompatActivity() {
         setListeners()
 
         setRecyclerView()
+    }
+
+    private fun loadTheme() {
+
+        val sharedPref = this.getSharedPreferences(SettingsFragment.THEME_PREF, Context.MODE_PRIVATE)
+
+        when (sharedPref.getInt(SettingsFragment.THEME_KEY, 0)) {
+
+            SettingsFragment.THEME_MODE_LIGHT ->
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+            SettingsFragment.THEME_MODE_DARK ->
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
     }
 
     private fun setViews() {
@@ -62,7 +90,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_settings -> {
 
-                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ContainerActivity::class.java).apply {
+
+                        putExtra("id", 11)
+                    }
+
+                    ContextCompat.startActivity(this, intent, null)
 
                     true
                 }

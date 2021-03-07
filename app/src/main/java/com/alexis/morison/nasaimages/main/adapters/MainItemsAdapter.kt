@@ -27,6 +27,14 @@ import kotlinx.android.synthetic.main.main_menu_card.view.*
 
 class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter<MainItemsAdapter.ViewHolder>() {
 
+    var recyclerRoot: RecyclerView? = null
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+
+        recyclerRoot = recyclerView
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(
@@ -38,7 +46,8 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], recyclerRoot!!
+    )
 
     override fun getItemCount(): Int = items.size
 
@@ -48,7 +57,7 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
         private val apiKey = "XdRrmURyk5bW91jnAyoHbaAngJrF8vKIiQiZI6AV"
 
-        fun bind(item: MainItem) = with(v) {
+        fun bind(item: MainItem, recyclerRoot: RecyclerView) = with(v) {
 
             main_card_title.text = item.title
             main_card_description.text = item.description
@@ -84,10 +93,14 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
 
                     text_view_more_info.visibility = View.VISIBLE
                     btn_more_info.text = "Less info"
+
+                    TransitionManager.beginDelayedTransition(recyclerRoot)
                 }
                 else {
-                    text_view_more_info.visibility = View.GONE
                     btn_more_info.text = "More info"
+                    text_view_more_info.visibility = View.GONE
+
+                    TransitionManager.beginDelayedTransition(recyclerRoot)
                 }
             }
         }

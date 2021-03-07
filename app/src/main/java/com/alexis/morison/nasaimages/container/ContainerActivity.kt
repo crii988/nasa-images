@@ -12,6 +12,7 @@ import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.library.fragments.LibraryFormFragment
 import com.alexis.morison.nasaimages.library.fragments.LibraryFragment
 import com.alexis.morison.nasaimages.rovers.fragments.RoverFormFragment
+import com.alexis.morison.nasaimages.settings.SettingsFragment
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.android.synthetic.main.activity_container.*
 import kotlinx.android.synthetic.main.apod_menu_card.*
@@ -37,27 +38,23 @@ class ContainerActivity : AppCompatActivity() {
 
                 1 -> {
                     loadFragment(ApodFragment())
-                    toolbar.title = resources.getString(R.string.apod_title)
                 }
                 2 -> {
                     //loadFragment(ApodFragment())
-                    toolbar.title = "Earth"
+                    //toolbar.title = "Earth"
                 }
                 3 -> {
                     //loadFragment(ApodFragment())
-                    toolbar.title = "EPIC"
+                    //toolbar.title = "EPIC"
                 }
                 4 -> {
                     loadFragment(RoverFormFragment())
-                    toolbar.title = resources.getString(R.string.rovers_title)
                 }
                 5 -> {
                     loadFragment(LibraryFormFragment())
-                    toolbar.title = resources.getString(R.string.library_title)
                 }
                 else -> {
-                    //loadFragment(LibraryFormFragment())
-                    toolbar.title = "Favorites"
+                    loadFragment(SettingsFragment())
                 }
             }
         }

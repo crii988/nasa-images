@@ -24,9 +24,6 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:hint="Select a rover"
-               android:theme="@style/input"
-               app:boxBackgroundColor="@android:color/transparent"
-               app:boxStrokeWidthFocused="0.1dp"
                android:layout_margin="20dp">
 
                <AutoCompleteTextView
@@ -85,9 +82,6 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:hint="Select a camera"
-                   android:theme="@style/input"
-                   app:boxBackgroundColor="@android:color/transparent"
-                   app:boxStrokeWidthFocused="0.1dp"
                    android:layout_marginHorizontal="20dp"
                    android:id="@+id/dropdown_menu_camera"
                    android:enabled="false">
@@ -131,7 +125,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginHorizontal="20dp"
-                   android:layout_marginBottom="20dp"
+                   android:layout_marginBottom="10dp"
                    android:layout_marginTop="20dp"
                    android:stepSize="1"
                    android:value="0.0"
@@ -139,6 +133,27 @@
                    android:valueTo="5000.0"
                    android:theme="@style/Slider"
                    android:id="@+id/slider_sol"/>
+
+               <com.google.android.material.textfield.TextInputLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginHorizontal="20dp"
+                   android:hint="Martian sol"
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:layout_marginBottom="30dp"
+                   android:id="@+id/input_sol_layout">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:maxLines="1"
+                       android:singleLine="true"
+                       android:imeOptions="actionDone"
+                       style="@style/Widget.AppCompat.AutoCompleteTextView"
+                       android:id="@+id/input_sol"
+                       android:inputType="number"/>
+
+               </com.google.android.material.textfield.TextInputLayout>
 
                <DatePicker
                    android:layout_width="match_parent"

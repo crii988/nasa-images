@@ -16,6 +16,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.appbar.MaterialToolbar
 import org.json.JSONObject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,12 +32,13 @@ class ApodFragment : Fragment() {
 
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var toolbar: MaterialToolbar
+
     private var requestQueue: RequestQueue? = null
 
     private val apiKey = "XdRrmURyk5bW91jnAyoHbaAngJrF8vKIiQiZI6AV"
 
     private var apodList = mutableListOf<APOD>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +67,9 @@ class ApodFragment : Fragment() {
 
         progressBar = v.findViewById(R.id.apod_main_progress)
         recyclerView = v.findViewById(R.id.apod_items_recycler)
+
+        toolbar = activity!!.findViewById(R.id.toolbar_id_container)
+        toolbar.title = resources.getString(R.string.apod_title)
     }
 
     private fun setRecyclerView() {

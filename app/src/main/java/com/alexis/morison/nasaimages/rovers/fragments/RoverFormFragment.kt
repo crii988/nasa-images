@@ -1,6 +1,8 @@
 package com.alexis.morison.nasaimages.rovers.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.TransitionManager
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,9 +12,15 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.get
+import androidx.fragment.app.FragmentActivity
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.library.fragments.LibraryFragment
+import com.alexis.morison.nasaimages.rovers.models.RoverQuery
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.slider.Slider
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 
 class RoverFormFragment : Fragment() {
 
@@ -32,12 +40,14 @@ class RoverFormFragment : Fragment() {
     private lateinit var checkCamera: CheckBox
 
     private lateinit var sliderSol: Slider
+    private lateinit var inputSol: TextInputEditText
+    private lateinit var inputSolLayout: TextInputLayout
     private lateinit var datePickerEarth: DatePicker
 
     private lateinit var btnSearch: Button
     private lateinit var root: CoordinatorLayout
 
-    private val apiKey = "XdRrmURyk5bW91jnAyoHbaAngJrF8vKIiQiZI6AV"
+    private lateinit var toolbar: MaterialToolbar
 
     private val itemsRovers = listOf("Perseverance", "Curiosity", "Opportunity", "Spirit")
     private var adapterRovers: ArrayAdapter<String>? = null
@@ -46,6 +56,8 @@ class RoverFormFragment : Fragment() {
     private var cameras: List<String>? = null
     private var adapterCameras: ArrayAdapter<String>? = null
     private var cameraSelected = ""
+    private var sol = 0
+    private var date = ""
     private val perseveranceDict = hashMapOf<String, String>()
     private val curiosityDict = hashMapOf<String, String>()
     private val opportunityDict = hashMapOf<String, String>()
@@ -121,10 +133,15 @@ class RoverFormFragment : Fragment() {
         checkCamera = v.findViewById(R.id.check_box_camera)
 
         sliderSol = v.findViewById(R.id.slider_sol)
+        inputSol = v.findViewById(R.id.input_sol)
+        inputSolLayout = v.findViewById(R.id.input_sol_layout)
         datePickerEarth = v.findViewById(R.id.date_picker_earth)
 
         btnSearch = v.findViewById(R.id.btn_search_rover)
         root = v.findViewById(R.id.root_rover_form)
+
+        toolbar = activity!!.findViewById(R.id.toolbar_id_container)
+        toolbar.title = resources.getString(R.string.rovers_title)
     }
 
     private fun setData() {
@@ -132,7 +149,8 @@ class RoverFormFragment : Fragment() {
         adapterRovers = ArrayAdapter(requireContext(), R.layout.list_item, itemsRovers)
         (textFieldRover.editText as? AutoCompleteTextView)?.setAdapter(adapterRovers)
 
-
+        inputSol.setText("0")
+        date = "${datePickerEarth.year}-${datePickerEarth.month + 1}-${datePickerEarth.dayOfMonth}"
     }
 
     private fun setListeners() {
@@ -180,37 +198,39 @@ class RoverFormFragment : Fragment() {
             }
         }
 
-        radioFilter.setOnClickListener {
+        radioFilter.setOnCheckedChangeListener { _, b ->
 
-            if (radioFilter.isChecked) layoutFilter.visibility = View.VISIBLE
+            if (b) layoutFilter.visibility = View.VISIBLE
         }
 
-        radioLatest.setOnClickListener {
+        radioLatest.setOnCheckedChangeListener { _, b ->
 
-            if (radioLatest.isChecked) layoutFilter.visibility = View.GONE
+            if (b) layoutFilter.visibility = View.GONE
         }
 
-        checkCamera.setOnClickListener {
+        checkCamera.setOnCheckedChangeListener { _, b ->
 
-            textFieldCamera.isEnabled = checkCamera.isChecked
+            textFieldCamera.isEnabled = b
         }
 
-        radioSol.setOnClickListener {
+        radioSol.setOnCheckedChangeListener { _, b ->
 
-            if (radioSol.isChecked) {
+            if (b) {
 
                 sliderSol.visibility = View.VISIBLE
+                inputSolLayout.visibility = View.VISIBLE
                 datePickerEarth.visibility = View.GONE
 
                 TransitionManager.beginDelayedTransition(root)
             }
         }
 
-        radioEarth.setOnClickListener {
+        radioEarth.setOnCheckedChangeListener { _, b ->
 
-            if (radioEarth.isChecked) {
+            if (b) {
 
                 sliderSol.visibility = View.GONE
+                inputSolLayout.visibility = View.GONE
                 datePickerEarth.visibility = View.VISIBLE
 
                 TransitionManager.beginDelayedTransition(root)
@@ -224,17 +244,62 @@ class RoverFormFragment : Fragment() {
             textFieldCamera.isEnabled = true
         }
 
+        sliderSol.addOnChangeListener { _, value, _ ->
+
+            sol = value.toInt()
+            inputSol.setText(sol.toString())
+        }
+
+        inputSol.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                try {
+                    sol = p0.toString().toInt()
+                    if (sol < 5000) sliderSol.value = sol.toFloat()
+
+                    inputSol.setSelection(inputSol.length())
+                }
+                catch (e: Exception) {
+
+                    Log.d("asdasd", e.message.toString())
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) { }
+        })
+
+        datePickerEarth.setOnDateChangedListener { _, i, i2, i3 ->
+
+            date = "$i-$i2-$i3"
+        }
+
         btnSearch.setOnClickListener {
 
-            Log.d("asd", roverSelected)
-            Log.d("asd", "latest photos " + radioLatest.isChecked.toString())
-            Log.d("asd", "filer photos " + radioFilter.isChecked.toString())
-            Log.d("asd", "filer by camera " + checkCamera.isChecked.toString())
-            Log.d("asd", cameraSelected)
-            Log.d("asd", "martian sol " + radioSol.isChecked.toString())
-            Log.d("asd", "earth date " + radioEarth.isChecked.toString())
-            Log.d("asd", sliderSol.value.toString())
-            Log.d("asd", "${datePickerEarth.year}-${datePickerEarth.month + 1}-${datePickerEarth.dayOfMonth}")
+            search()
         }
+    }
+
+    private fun search() {
+
+        val roverQuery = RoverQuery(
+                roverSelected,
+                radioLatest.isChecked,
+                radioFilter.isChecked,
+                checkCamera.isChecked,
+                cameraSelected,
+                sol.toString(),
+                date
+        )
+
+        val fm = context as FragmentActivity
+
+        val fragmentTransaction = fm.supportFragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.fragmentContainer, RoverFragment.newInstance(roverQuery))
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 }

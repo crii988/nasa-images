@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:indeterminateTint="@color/primary_nasa"
+                android:theme="@style/Progress"
                 android:id="@+id/apod_card_progress"
                 android:visibility="visible"/>
 
@@ -77,7 +77,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:button="@drawable/checkbox"
                 android:layout_marginEnd="16dp"
-                android:buttonTint="@color/primary_nasa"
+                android:buttonTint="@color/primary_nasa_light"
                 android:layout_marginTop="1dp"/>
 
             <ImageButton

@@ -64,7 +64,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:button="@drawable/checkbox"
                     android:layout_marginEnd="16dp"
-                    android:buttonTint="@color/primary_nasa"
+                    android:buttonTint="@color/primary_nasa_light"
                     android:layout_marginTop="1dp"/>
 
                 <ImageButton
@@ -94,7 +94,7 @@
                     android:text=""
                     android:id="@+id/apod_copyright"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColor"/>
+                    android:textColor="?android:attr/textColorSecondary"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:textAlignment="viewEnd"
                     android:id="@+id/apod_date"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColor"/>
+                    android:textColor="?android:attr/textColorSecondary"/>
 
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                 android:justificationMode="inter_word"
                 android:id="@+id/apod_explanation"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColor"/>
+                android:textColor="?android:attr/textColorSecondary"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"

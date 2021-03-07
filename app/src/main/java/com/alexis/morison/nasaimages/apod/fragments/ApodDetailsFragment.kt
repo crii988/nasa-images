@@ -9,6 +9,7 @@ import android.widget.*
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.services.UtilService
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jsibbold.zoomage.ZoomageView
@@ -28,6 +29,7 @@ class ApodDetailsFragment : Fragment() {
     private lateinit var btnWallpaperDownload: Button
     //private lateinit var card: MaterialCardView
     //private lateinit var check: CheckBox
+    private lateinit var toolbar: MaterialToolbar
 
     private var hdUrl = ""
 
@@ -66,6 +68,8 @@ class ApodDetailsFragment : Fragment() {
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper)
         //card = v.findViewById(R.id.apod_card_detail)
         //check = v.findViewById(R.id.apod_check)
+        toolbar = activity!!.findViewById(R.id.toolbar_id_container)
+        toolbar.title = resources.getString(R.string.apod_title)
     }
 
     private fun setData() {

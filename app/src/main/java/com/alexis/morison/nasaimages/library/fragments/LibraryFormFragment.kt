@@ -1,6 +1,8 @@
 package com.alexis.morison.nasaimages.library.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.Toolbar
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentActivity
 import com.alexis.morison.nasaimages.R
 import com.google.android.material.appbar.MaterialToolbar
@@ -24,6 +27,8 @@ class LibraryFormFragment : Fragment() {
     private lateinit var searchInput: TextInputEditText
     private lateinit var searcBtn: Button
     private lateinit var slider: RangeSlider
+    private lateinit var startYearInput: TextInputEditText
+    private lateinit var endYearInput: TextInputEditText
 
     private lateinit var toolbar: MaterialToolbar
 
@@ -61,6 +66,11 @@ class LibraryFormFragment : Fragment() {
         }
 
         searcBtn = v.findViewById(R.id.btn_search)
+        startYearInput = v.findViewById(R.id.input_start_year)
+        endYearInput = v.findViewById(R.id.input_end_year)
+
+        startYearInput.setText("1920")
+        endYearInput.setText(Year.now().value.toString())
 
         slider = v.findViewById(R.id.slider_years)
         slider.valueFrom = 1920.0F
@@ -91,7 +101,52 @@ class LibraryFormFragment : Fragment() {
 
             startYear = slider.values[0].toInt()
             endYear = slider.values[1].toInt()
+
+            startYearInput.setText(startYear.toString())
+            endYearInput.setText(endYear.toString())
         }
+
+        startYearInput.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                try {
+                    startYear = p0.toString().toInt()
+                    if (startYear > 1920) slider.values = listOf(startYear.toFloat(), slider.values[1])
+
+                    startYearInput.setSelection(startYearInput.length())
+                }
+                catch (e: Exception) {
+
+                    Log.d("asdasd", e.message.toString())
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+
+        endYearInput.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                try {
+                    endYear = p0.toString().toInt()
+                    if (endYear > 1920) slider.values = listOf(slider.values[0], endYear.toFloat())
+
+                    endYearInput.setSelection(endYearInput.length())
+                }
+                catch (e: Exception) {
+
+                    Log.d("asdasd", e.message.toString())
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
     }
 
     private fun search() {
