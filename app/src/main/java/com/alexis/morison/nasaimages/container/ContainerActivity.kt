@@ -41,17 +41,9 @@ class ContainerActivity : AppCompatActivity() {
                     loadFragment(ApodFragment())
                 }
                 2 -> {
-                    //loadFragment(ApodFragment())
-                    //toolbar.title = "Earth"
-                }
-                3 -> {
-                    //loadFragment(ApodFragment())
-                    //toolbar.title = "EPIC"
-                }
-                4 -> {
                     loadFragment(RoverFormFragment())
                 }
-                5 -> {
+                3 -> {
                     loadFragment(LibraryFormFragment())
                 }
                 11 -> {

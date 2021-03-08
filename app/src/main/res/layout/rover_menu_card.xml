@@ -86,20 +86,21 @@
             android:layout_marginTop="-10dp"
             android:layout_gravity="end">
 
-            <CheckBox
+            <!--<CheckBox
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:button="@drawable/checkbox"
                 android:layout_marginEnd="16dp"
                 android:buttonTint="@color/primary_nasa_light"
-                android:layout_marginTop="1dp"/>
+                android:layout_marginTop="1dp"/>-->
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_share_24"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/rover_card_share"/>
 
         </LinearLayout>
 

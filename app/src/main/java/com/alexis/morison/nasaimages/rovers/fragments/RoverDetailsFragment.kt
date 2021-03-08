@@ -1,11 +1,13 @@
 package com.alexis.morison.nasaimages.rovers.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.alexis.morison.nasaimages.R
@@ -28,6 +30,7 @@ class RoverDetailsFragment : Fragment() {
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
     private lateinit var toolbar: MaterialToolbar
+    private lateinit var btnShare: ImageButton
 
     private var imgUrl = ""
 
@@ -63,6 +66,7 @@ class RoverDetailsFragment : Fragment() {
         status = v.findViewById(R.id.rover_status)
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper_rover)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper_rover)
+        btnShare = v.findViewById(R.id.rover_share)
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
         toolbar.title = rover!!.rover_name
@@ -97,6 +101,18 @@ class RoverDetailsFragment : Fragment() {
             Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
             utilService.downloadImage(imgUrl, UtilService.FLAG_NOT_SET_WALLPAPER)
+        }
+
+        btnShare.setOnClickListener {
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, rover!!.img_src)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Share URL")
+            startActivity(shareIntent)
         }
     }
 

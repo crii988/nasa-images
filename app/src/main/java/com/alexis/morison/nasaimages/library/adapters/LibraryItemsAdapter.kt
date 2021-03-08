@@ -1,8 +1,10 @@
 package com.alexis.morison.nasaimages.library.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
@@ -58,6 +60,18 @@ class LibraryItemsAdapter(private val items: List<Library>) : RecyclerView.Adapt
                 fragmentTransaction.replace(R.id.fragmentContainer, LibraryDetailsFragment.newInstance(item))
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
+            }
+
+            library_card_share.setOnClickListener {
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, item.href)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, "Share URL")
+                ContextCompat.startActivity(context, shareIntent, null)
             }
         }
     }

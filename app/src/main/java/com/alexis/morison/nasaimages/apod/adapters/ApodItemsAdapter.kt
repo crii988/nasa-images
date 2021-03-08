@@ -1,8 +1,10 @@
 package com.alexis.morison.nasaimages.apod.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.alexis.morison.nasaimages.R
@@ -59,6 +61,18 @@ class ApodItemsAdapter(private val items: List<APOD>) : RecyclerView.Adapter<Apo
                 fragmentTransaction.replace(R.id.fragmentContainer, ApodDetailsFragment.newInstance(item))
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
+            }
+
+            apod_card_share.setOnClickListener {
+
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, item.hdurl)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, "Share URL")
+                startActivity(context, shareIntent, null)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.alexis.morison.nasaimages.library.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +35,7 @@ class LibraryDetailsFragment : Fragment() {
     private lateinit var btnWallpaper: Button
     private lateinit var btnWallpaperDownload: Button
     private lateinit var chipGroup: ChipGroup
+    private lateinit var btnShare: ImageButton
 
     private lateinit var toolbar: MaterialToolbar
 
@@ -75,6 +77,7 @@ class LibraryDetailsFragment : Fragment() {
         btnWallpaper = v.findViewById(R.id.btn_set_wallpaper_library)
         btnWallpaperDownload = v.findViewById(R.id.btn_download_wallpaper_library)
         chipGroup = v.findViewById(R.id.chipGroup)
+        btnShare = v.findViewById(R.id.library_share)
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
         toolbar.title = itemData!!.query.capitalize(Locale.getDefault())
@@ -85,7 +88,7 @@ class LibraryDetailsFragment : Fragment() {
         title.text = itemData!!.title
         description.text = itemData!!.description
         date.text = itemData!!.date_created
-        center.text = " " + itemData!!.center
+        center.text = itemData!!.center
 
         Picasso.get()
                 .load(itemData!!.href)
@@ -129,6 +132,18 @@ class LibraryDetailsFragment : Fragment() {
             Toast.makeText(context, "Downloading image", Toast.LENGTH_SHORT).show()
 
             getImageById(utilService, UtilService.FLAG_NOT_SET_WALLPAPER)
+        }
+
+        btnShare.setOnClickListener {
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, itemData!!.href)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Share URL")
+            startActivity(shareIntent)
         }
     }
 
