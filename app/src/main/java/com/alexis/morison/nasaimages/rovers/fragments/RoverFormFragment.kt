@@ -115,6 +115,14 @@ class RoverFormFragment : Fragment() {
         return v
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        setData()
+
+        setAdapter()
+    }
+
     private fun setViews(v: View) {
 
         textFieldRover = v.findViewById(R.id.dropdown_menu_rover)
@@ -149,8 +157,47 @@ class RoverFormFragment : Fragment() {
         adapterRovers = ArrayAdapter(requireContext(), R.layout.list_item, itemsRovers)
         (textFieldRover.editText as? AutoCompleteTextView)?.setAdapter(adapterRovers)
 
+        //dropdownRover.setText(adapterRovers!!.getItem(0).toString())
+
+        //setAdapter()
+
         inputSol.setText("0")
         date = "${datePickerEarth.year}-${datePickerEarth.month + 1}-${datePickerEarth.dayOfMonth}"
+    }
+
+    private fun setAdapter() {
+
+        when (roverSelected) {
+
+            "Perseverance" -> {
+                cameras = perseveranceDict.toList().map { it.first }
+
+                adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
+                (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
+            }
+            "Curiosity" -> {
+                cameras = curiosityDict.toList().map { it.first }
+
+                adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
+                (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
+            }
+            "Opportunity" -> {
+                cameras = opportunityDict.toList().map { it.first }
+
+                adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
+                (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
+            }
+            else -> {
+                cameras = spiritDict.toList().map { it.first }
+
+                adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
+                (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
+            }
+        }
+
+        //dropdownRover.setText(adapterRovers!!.getItem(0).toString())
+
+        dropdownCamera.setText("")
     }
 
     private fun setListeners() {
@@ -161,41 +208,7 @@ class RoverFormFragment : Fragment() {
             textFieldRover.isEnabled = false
             textFieldRover.isEnabled = true
 
-            when (roverSelected) {
-
-                "Perseverance" -> {
-                    cameras = perseveranceDict.toList().map { it.first }
-
-                    adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
-                    (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
-
-                    dropdownCamera.setText("")
-                }
-                "Curiosity" -> {
-                    cameras = curiosityDict.toList().map { it.first }
-
-                    adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
-                    (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
-
-                    dropdownCamera.setText("")
-                }
-                "Opportunity" -> {
-                    cameras = opportunityDict.toList().map { it.first }
-
-                    adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
-                    (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
-
-                    dropdownCamera.setText("")
-                }
-                else -> {
-                    cameras = spiritDict.toList().map { it.first }
-
-                    adapterCameras = ArrayAdapter(requireContext(), R.layout.list_item, cameras!!)
-                    (textFieldCamera.editText as? AutoCompleteTextView)?.setAdapter(adapterCameras)
-
-                    dropdownCamera.setText("")
-                }
-            }
+            setAdapter()
         }
 
         radioFilter.setOnCheckedChangeListener { _, b ->
@@ -211,6 +224,8 @@ class RoverFormFragment : Fragment() {
         checkCamera.setOnCheckedChangeListener { _, b ->
 
             textFieldCamera.isEnabled = b
+
+            //dropdownCamera.setText(adapterCameras!!.getItem(0).toString())
         }
 
         radioSol.setOnCheckedChangeListener { _, b ->
@@ -289,6 +304,7 @@ class RoverFormFragment : Fragment() {
                 radioFilter.isChecked,
                 checkCamera.isChecked,
                 cameraSelected,
+                radioSol.isChecked,
                 sol.toString(),
                 date
         )

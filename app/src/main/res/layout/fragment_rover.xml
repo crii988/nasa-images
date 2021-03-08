@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".rovers.fragments.RoverFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/rover_scroll">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rover_items_recycler"
+                android:clipToPadding="false"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="120dp"
+                    android:layout_height="70dp"
+                    android:text="@string/btn_previous"
+                    android:visibility="gone"
+                    android:id="@+id/btn_prev_page_rover"
+                    app:cornerRadius="20dp"
+                    android:layout_margin="20dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="120dp"
+                    android:layout_height="70dp"
+                    android:text="@string/btn_next"
+                    android:visibility="gone"
+                    android:id="@+id/btn_next_page_rover"
+                    app:cornerRadius="20dp"
+                    android:layout_margin="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:theme="@style/Progress"
+        android:id="@+id/rover_main_progress"
+        android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

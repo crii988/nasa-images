@@ -117,6 +117,8 @@ class MainItemsAdapter(private val items: List<MainItem>) : RecyclerView.Adapter
                     Picasso.get()
                         .load(response.getString("url"))
                         .error(R.drawable.apod)
+                        .resize(500, 500)
+                        .centerCrop()
                         .into(view.main_card_image, object: Callback {
 
                             override fun onSuccess() {

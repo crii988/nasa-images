@@ -4,9 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -14,23 +12,28 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_nasa"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_nasa_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NasaImagesNobar"
-        android:largeHeap="true"
-        android:requestLegacyExternalStorage="true">
+        android:theme="@style/Theme.NasaImagesNobar">
 
         <activity
             android:name=".container.ContainerActivity"
-            android:theme="@style/Theme.NasaImagesNobar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NasaImagesNobar" />
 
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

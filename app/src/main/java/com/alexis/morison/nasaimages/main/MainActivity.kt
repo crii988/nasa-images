@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        setTheme(R.style.Theme_NasaImagesNobar)
+
         loadTheme()
 
         super.onCreate(savedInstanceState)
@@ -101,7 +103,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
 
-                    Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ContainerActivity::class.java).apply {
+
+                        putExtra("id", 12)
+                    }
+
+                    ContextCompat.startActivity(this, intent, null)
 
                     true
                 }

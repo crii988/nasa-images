@@ -7,6 +7,7 @@ import android.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.alexis.morison.nasaimages.R
+import com.alexis.morison.nasaimages.about.AboutFragment
 import com.alexis.morison.nasaimages.apod.fragments.ApodFragment
 import com.alexis.morison.nasaimages.apod.models.APOD
 import com.alexis.morison.nasaimages.library.fragments.LibraryFormFragment
@@ -53,8 +54,11 @@ class ContainerActivity : AppCompatActivity() {
                 5 -> {
                     loadFragment(LibraryFormFragment())
                 }
-                else -> {
+                11 -> {
                     loadFragment(SettingsFragment())
+                }
+                12 -> {
+                    loadFragment(AboutFragment())
                 }
             }
         }

@@ -23,7 +23,7 @@
                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:hint="Select a rover"
+               android:hint="@string/text_view_select_rover"
                android:layout_margin="20dp">
 
                <AutoCompleteTextView
@@ -45,7 +45,7 @@
                    android:id="@+id/radio_button_latest"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Latest photos"
+                   android:text="@string/latest_photos"
                    android:textAppearance="?attr/textAppearanceBody2"
                    android:textColor="?android:attr/textColor"/>
 
@@ -53,7 +53,7 @@
                    android:id="@+id/radio_button_filter"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Filter photos"
+                   android:text="@string/filter_photos"
                    android:textAppearance="?attr/textAppearanceBody2"
                    android:textColor="?android:attr/textColor"/>
 
@@ -70,7 +70,7 @@
                <CheckBox
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Filtering by camera"
+                   android:text="@string/filter_by_camera"
                    android:layout_marginHorizontal="20dp"
                    android:layout_marginTop="20dp"
                    android:id="@+id/check_box_camera"
@@ -81,7 +81,7 @@
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:hint="Select a camera"
+                   android:hint="@string/select_camera"
                    android:layout_marginHorizontal="20dp"
                    android:id="@+id/dropdown_menu_camera"
                    android:enabled="false">
@@ -107,7 +107,7 @@
                        android:id="@+id/radio_button_sol"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Martian sol (martian rotation or day)"
+                       android:text="@string/text_view_sol"
                        android:textAppearance="?attr/textAppearanceBody2"
                        android:textColor="?android:attr/textColor"/>
 
@@ -115,7 +115,7 @@
                        android:id="@+id/radio_button_earth"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Earth date"
+                       android:text="@string/earth_date"
                        android:textAppearance="?attr/textAppearanceBody2"
                        android:textColor="?android:attr/textColor"/>
 
@@ -138,7 +138,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginHorizontal="20dp"
-                   android:hint="Martian sol"
+                   android:hint="@string/text_view_sol"
                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                    android:layout_marginBottom="30dp"
                    android:id="@+id/input_sol_layout">

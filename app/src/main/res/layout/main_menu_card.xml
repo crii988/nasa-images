@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="More info"
+                android:text="@string/more_info"
                 style="?attr/borderlessButtonStyle"
                 android:id="@+id/btn_more_info"/>
 
@@ -94,57 +94,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <!--<FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/CardBackground">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/main_card_image"
-            android:scaleType="centerCrop"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/semi_transparent"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_gravity="bottom">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:id="@+id/main_card_title"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="17sp"
-                android:id="@+id/main_card_description"
-                android:textColor="@color/white"/>
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/primary_nasa"
-            android:id="@+id/main_card_progress"
-            android:visibility="gone"/>
-
-    </FrameLayout>-->
 
 </com.google.android.material.card.MaterialCardView>

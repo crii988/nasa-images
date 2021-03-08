@@ -8,6 +8,7 @@ class RoverQuery(
         val isFilter: Boolean,
         val isFilterCamera: Boolean,
         val camera: String,
+        val isSol: Boolean,
         val sol: String,
         val date: String,
 ) : Serializable

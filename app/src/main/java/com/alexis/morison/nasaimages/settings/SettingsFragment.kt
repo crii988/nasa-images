@@ -10,12 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.fragment.app.FragmentActivity
 import com.alexis.morison.nasaimages.R
 import com.alexis.morison.nasaimages.main.MainActivity
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -50,7 +54,7 @@ class SettingsFragment : Fragment() {
         radioDark = v.findViewById(R.id.radio_button_dark)
 
         toolbar = activity!!.findViewById(R.id.toolbar_id_container)
-        toolbar.title = "Settings"
+        toolbar.title = getString(R.string.settings)
     }
 
     private fun setData() {

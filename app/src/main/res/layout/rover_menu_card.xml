@@ -10,7 +10,7 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:id="@+id/library_card"
+    android:id="@+id/rover_card"
     card_view:cardElevation="4dp">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:id="@+id/library_card_image"
+                android:id="@+id/rover_card_image"
                 android:scaleType="centerCrop"/>
 
             <ProgressBar
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:theme="@style/Progress"
-                android:id="@+id/library_card_progress"
+                android:id="@+id/rover_card_progress"
                 android:visibility="visible"/>
 
         </FrameLayout>
@@ -49,16 +49,31 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:id="@+id/library_card_title"
+                android:id="@+id/rover_card_date"
                 android:layout_marginBottom="6dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/library_card_date"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_view_sol"
+                    android:layout_marginEnd="10dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/rover_card_sol"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
