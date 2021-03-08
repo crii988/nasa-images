@@ -1,19 +1,17 @@
 # NASA Images
 
-App que consume de las APIs de la NASA para poder usar sus imagenes como fondo de pantalla.
+App que consume de las APIs de la NASA para poder usar sus imágenes como fondo de pantalla.
 
-    La aplicación tiene los siguientes modulos:
+    La aplicación tiene los siguientes módulos:
     * APOD
     * Mars Rover Photos
     * NASA Image Library
 
 ## APK
 
-Para descargar la aplicacion, ingresar al siguiente link:
+Para descargar la aplicación, ingresar al siguiente [Link](https://github.com/alexismorison95/nasa-images/tree/main/apk).
 
-https://github.com/alexismorison95/nasa-images/tree/main/apk
-
-Preferiblemente desde el navegador Google Chrome
+Preferiblemente desde el navegador Google Chrome.
 
 ## Capturas
 
