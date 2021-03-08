@@ -1,0 +1,51 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+}
+
+.logo {
+    background-color: #33D374;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    position: relative;
+    /* margin: 0 auto; */
+    display: inline-block;
+    top: -0.1rem;
+}
+
+.logo:before {
+    content: '';
+    background-color: #108EFF;
+    width: 4.6rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    position: absolute;
+    top: 0.49rem;
+    left: -0.32rem;
+    transform: rotate(-35deg);
+}
+
+.logo:after {
+    content: '';
+    background-color: #33D374;
+    width: 4.6rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    position: absolute;
+    top: -1.3rem;
+    left: -0.32rem;
+    transform: rotate(35deg);
+}
+
+.contenedor {
+	width: 8.7rem;
+    padding: 1.3rem;
+    margin: 0 auto;
+}
+
+p {
+    display: inline-block;
+    margin-left: 3.7rem;
+    color: #546672;
+}
