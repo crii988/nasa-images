@@ -2,8 +2,9 @@
 
 App que consume de las APIs de la NASA para poder usar sus imagenes como fondo de pantalla.
 
-    La aplicación no está terminada, modulos:
+    La aplicación tiene los siguientes modulos:
     * APOD
+    * Mars Rover Photos
     * NASA Image Library
 
 ## APK
