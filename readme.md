@@ -9,7 +9,7 @@ La aplicación tiene los siguientes módulos:
 
 ## APK
 
-Para descargar la aplicación, ingresar al siguiente [Link](https://github.com/alexismorison95/nasa-images/tree/main/apk).
+Para descargar la aplicación, ingresar al siguiente [Link](https://github.com/alexismorison95/nasa-images/raw/main/apk/NASA Images beta.apk).
 
 Preferiblemente desde el navegador Google Chrome.
 
